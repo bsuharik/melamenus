@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\manage",
+    "\\manage\\resources",
+    "\\manage\\resources\\views",
+    "\\manage\\resources\\views\\layouts"
+  ],
+  "SelectedNode": "\\manage\\resources\\views\\layouts\\app.blade.php",
+  "PreviewInSolutionExplorer": false
+}
