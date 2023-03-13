@@ -3,10 +3,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Carbon;
 use Validator;
 use File;
+
+use App\Models\ViewsModel;
 use App\Models\{RestaurantModel,CategoryModel,MenuModel,TableModel,CurrencyModel,UserModel,CountryModel,TextureModel,FontModel};
 use Auth;
+
 class RestaurantController extends Controller
 {
     /**
@@ -55,6 +59,62 @@ class RestaurantController extends Controller
         if(!empty($restaurant_details->country_detail->country_name)){
             $country_name=$restaurant_details->country_detail->country_name;
         }
+		
+		$currency_array =array();
+        $currency_array = CurrencyModel::all();
+        $font_type=array();
+        // Get Country Array
+        $country_array =array();
+        $timezone_list =array();
+        $country_array = CountryModel::all();
+        $result_data_count =array();
+        $texture_array =array();
+        $texture_array = TextureModel::all();
+		$demo_views = 'Y';
+		
+		//get views list
+		$views_array = array();
+		
+		$i = 30;
+		while ($i >= 0) {
+			$tmp_count = ViewsModel::where('restaurant_id', $id)->get()->where('date',date("Y-m-d", mktime(0, 0, 0, date('m'), date('d') - $i, date('Y'))))->count();
+			$count_v[] = $tmp_count;
+			$date_v[] = "'".date("d.m.Y", mktime(0, 0, 0, date('m'), date('d') - $i, date('Y')))."'";
+			
+			if($tmp_count > 0 ){
+				$demo_views = 'N';
+			}
+			$i--;
+		} 
+		//generate demo views
+		if($demo_views == 'Y'){
+			$i = 30;
+			while ($i >= 0) {
+				$count_v[] = rand(2, 20);
+				$date_v[] = '"'.date("d.m.Y", mktime(0, 0, 0, date('m'), date('d') - $i, date('Y'))).'"';
+
+				if($tmp_count > 0 ){
+					$demo_views = 'N';
+				}
+				$i--;
+			} 
+		}
+		$count_v = implode(', ', $count_v);
+		$date_v = implode(', ', $date_v);
+		//generate demo views
+		//echo "<pre>"; print_r($views_array);  echo "</pre>";
+		//exit();
+		//get viiews list
+		
+		//image_qr
+		$qr_image = '/'.config('images.qr_code_url').$id."/";
+		$table_data = TableModel::where('restaurant_id',$id)->first();
+		//echo "<pre>"; print_r(explode(" ", $table_data->qr_code));  echo "1</pre>"; exit();
+		$qr_image .= explode(" ", $table_data->qr_code)[0];
+		
+		//restaurant link
+		$rest_link = '/user_home/'.$id.'?prew=y';
+		
         // check restaurant User or not  
         $user_detail=UserModel::where('restaurant_id',$id)->first();
         $parent_restaurant_details=array();
@@ -64,9 +124,11 @@ class RestaurantController extends Controller
             $parent_restaurant_details=RestaurantModel::where('restaurant_id',$user_detail->restaurant_owner_id)->with('user_detail')->first();
             $restaurant_details->restaurant_user =Auth::User();
         }
-        
-        // echo "<pre>"; print_r($parent_restaurant_details);  echo "</pre>"; exit();
-        return view('restaurant/details',['restaurant' => $restaurant_details, 'category_count' => $category_count, 'menu_count' => $menu_count, 'table_count' => $table_count, 'currency_name' => $currency_name, 'country_name' => $country_name,'parent_restaurant_details'=>$parent_restaurant_details]);
+		
+		
+       
+       // echo "<pre>"; print_r($date_v);  echo "</pre>"; exit();
+        return view('restaurant/details',['restaurant' => $restaurant_details, 'category_count' => $category_count, 'menu_count' => $menu_count, 'table_count' => $table_count, 'currency_name' => $currency_name, 'country_name' => $country_name,'parent_restaurant_details'=>$parent_restaurant_details, 'currency_list' => $currency_array,'country_list' => $country_array,'texture_array'=>$texture_array, 'timezone_list' => $timezone_list, 'qr_image' => $qr_image, 'rest_link' => $rest_link, 'views_array' => $views_array, 'demo_views' => $demo_views, 'count_v' => $count_v, 'date_v' => $date_v]);
     } 
     // Update Restaurant Form
     public function update_restaurant_details($id)
@@ -81,10 +143,11 @@ class RestaurantController extends Controller
         $font_type=array();
         // Get Country Array
         $country_array =array();
+        $timezone_list =array();
         $country_array = CountryModel::all();
         $texture_array =array();
         $texture_array = TextureModel::all();
-        return view('restaurant/edit',['restaurant' => $restaurant_details, 'currency_list' => $currency_array,'country_list' => $country_array,'texture_array'=>$texture_array]);
+        return view('restaurant/edit',['restaurant' => $restaurant_details, 'currency_list' => $currency_array,'country_list' => $country_array,'texture_array'=>$texture_array, 'timezone_list' => $timezone_list]);
     }
     // Update Restaurant Data
     public function update_restaurant(Request $request)
@@ -95,6 +158,7 @@ class RestaurantController extends Controller
         if (!empty($restaurant_details)) 
         {
             $current_restaurant_logo = $restaurant_details->restaurant_logo;
+			
             $current_restaurant_coverimage = $restaurant_details->restaurant_cover_image;
             if ($current_restaurant_logo == "" && $current_restaurant_coverimage == "") 
             {
@@ -106,7 +170,7 @@ class RestaurantController extends Controller
                                     'email'           => 'required|email',
                                     'contact_number'  => 'required',
                                     'country_id'      => 'required',
-                                    'time_zone'      => 'required',
+                                    //'time_zone'      => 'required',
                                     'location'        => 'required',
                                     'currency_id'     => 'required',
                                     'restaurant_logo' => 'required|mimes:jpeg,png|max:2048',
@@ -123,7 +187,7 @@ class RestaurantController extends Controller
                                     'email'           => 'required|email',
                                     'contact_number'  => 'required',
                                     'country_id'      => 'required',
-                                    'time_zone'      => 'required',
+                                    //'time_zone'      => 'required',
                                     'location'        => 'required',
                                     'currency_id'     => 'required',
                                     'restaurant_logo' => 'mimes:jpeg,png|max:2048',
@@ -159,22 +223,23 @@ class RestaurantController extends Controller
                 {
                     $restaurant_coverimage = $current_restaurant_coverimage;
                 }
-                if(!empty($request->texture_id)){
-                    $texture_id=$request->texture_id;
-                }else{
-                    $texture_id =NULL;
-                }
+                //if(!empty($request->texture_id)){
+                //    $texture_id=$request->texture_id;
+                //}else{
+                 //   $texture_id =NULL;
+                //}
                 // Update restaurant row
+				
                 $update_res = RestaurantModel::where('restaurant_id',$restaurant_id)->first();
                 $update_res->restaurant_name = $request->restaurant_name;
                 $update_res->contact_person  = $request->contact_person;
                 $update_res->email           = $request->email;
                 $update_res->contact_number  = $request->contact_number;
                 $update_res->country_id      = $request->country_id;
-                $update_res->time_zone_id      = $request->time_zone;
+                //$update_res->time_zone_id      = $request->time_zone;
                 $update_res->location        = $request->location;
                 $update_res->currency_id     = $request->currency_id;
-                $update_res->texture_id     = $texture_id;
+               // $update_res->texture_id     = $texture_id;
                 $update_res->restaurant_logo = $restaurant_logo;
                 $update_res->restaurant_cover_image = $restaurant_coverimage;
                 $update_res->app_theme_color_1 = $request->app_theme_color_1;

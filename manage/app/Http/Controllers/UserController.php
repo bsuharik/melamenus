@@ -9,12 +9,15 @@ use App\Http\Controllers\Controller;
 use Validator;
 use Hash;
 use Auth;
+use Cookie;
 use Redirect;
+
 use Mail;
 use App\Models\CategoryModel;
 use App\Models\RestaurantModel;
 use App\Models\MenuModel;
 use App\Models\TagModel;
+use App\Models\ViewsModel;
 use App\Models\UserModel;
 use App\Models\CurrencyModel;
 use App\Models\ChefQuestion;
@@ -69,7 +72,38 @@ class UserController extends Controller
                     session()->put('chair_no', '');
                 }
             }
+			
+			//fixed view
+			if(!request()->has('prew')){
+				
+				$rest_views = session('rest_view');
+
+				$rest_views_mass = explode(',', $rest_views);
+				
+				if(!in_array($restaurant_id, $rest_views_mass)){
+					
+					$rest_views_mass[] = $restaurant_id;
+					$rest_views_mass = array_diff($rest_views_mass, array(''));
+					$rest_views_mass = implode(',', $rest_views_mass);
+					
+					session(['rest_view' => $rest_views_mass]);
+					
+					$views = new ViewsModel();
+                    $views->restaurant_id = $restaurant_id;
+                   $views->date = date("Y-m-d");
+                   // $views->date = '2023-03-11';
+                    $is_saved = $views->save();
+					$data = session()->all();
+
+				}
+					
+				
+			}
+			//fixed view
             session()->save();
+			
+
+			
             // Restaurant Details 
             $restaurant_details = RestaurantModel::where('restaurant_id', $restaurant_id)->with('parent_category_detail', 'main_category_detail', 'sub_category_detail', 'currency_detail', 'get_app_theme_font_type_1', 'get_app_theme_font_type_2', 'get_app_theme_font_type_3', 'get_app_theme_font_type_4', 'country_detail', 'texture_detail')->first();
             // Get Parent Categories

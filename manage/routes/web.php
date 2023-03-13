@@ -1,11 +1,5 @@
 <?php
 
-
-
- 
-
-
-
 /*
 
 
@@ -45,21 +39,11 @@
 */
 
 
-
-
-
-
-
 Route::get('auth/{driver}', 'SocialLoginController@redirectToProvider')->name('social.oauth');
 
 
 
 Route::get('auth/{driver}/callback', 'SocialLoginController@handleProviderCallback')->name('social.callback'); 
-
-
-
-
-
 
 
 // route to show the login form
@@ -72,14 +56,7 @@ Route::get('/signup', 'RegisterController@showRegister');
 
 Route::post('register_user', 'RegisterController@doRegister');
 
-
-
-
-
-
-
 // change language
-
 
 
 Route::post('change_currency','RegisterController@change_currency');
@@ -93,17 +70,7 @@ Route::post('change_language','RegisterController@change_language');
 Route::post('change_language_currency','RegisterController@change_langauge_currency');
 
 
-
-
-
-
-
 Route::post('visit_menu_item_count', 'RegisterController@countVisitingMenuItem');
-
-
-
-
-
 
 
 // route to show the login form
@@ -113,17 +80,7 @@ Route::post('visit_menu_item_count', 'RegisterController@countVisitingMenuItem')
 Route::get('/', 'LoginController@showLogin');
 
 
-
-
-
-
-
 Route::get('login', array('uses' => 'LoginController@showLogin'));
-
-
-
-
-
 
 
 // route to process the form
@@ -136,51 +93,14 @@ Route::post('login', array('uses' => 'LoginController@doLogin'));
 
 Auth::routes();
 
-
-
-
-
-
-
 Route::get('/home', 'HomeController@index')->name('home');
-
-
-
-
-
-
-
-Auth::routes();
-
-
-
-
-
-
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-
-
  
 
 
 
 // Route::get('logout', array(['as' => 'logout', 'uses' => 'HomeController@doLogout'])); #logout
 
-
-
-
-
-
-
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
-
-
-
-
-
-
 
 // Restaurant Listing 
 
@@ -192,12 +112,6 @@ use App\Http\Middleware\CheckUserAccess;
 
 Route::get('/restaurant', 'HomeController@restaurant')->name('restaurant')->middleware(CheckUserAccess::class);
 
-
-
-
-
-
-
 // Restaurant Details 
 
 
@@ -207,12 +121,6 @@ use App\Http\Middleware\CheckValidRestaurant;
 
 
 Route::get('/restaurant-detail/{id}', 'RestaurantController@restaurant_details')->name('restaurant-detail')->middleware(CheckValidRestaurant::class);
-
-
-
-
-
-
 
 // Update Restaurant Details 
 
@@ -224,15 +132,7 @@ Route::get('/restaurant_profile/{id}', 'RestaurantController@update_restaurant_d
 
 Route::post('restaurant_profile', 'RestaurantController@update_restaurant');
 
-
-
-
-
-
-
 // Menu Details
-
-
 
 Route::get('/menu/{id}', 'MenuController@index')->name('menu')->middleware(CheckValidRestaurant::class); #list
 
@@ -548,7 +448,8 @@ Route::get('user_login/{id}', array('uses' => 'UserController@showLogin'))->midd
 
 
 
-Route::get('/user_home/{id}', 'UserController@index')->name('user_home')->middleware(CheckAppUserAccess::class);
+//Route::get('/user_home/{id}', 'UserController@index')->name('user_home')->middleware(CheckAppUserAccess::class);
+Route::get('/user_home/{id}', 'UserController@index')->name('user_home');
 
 
 
