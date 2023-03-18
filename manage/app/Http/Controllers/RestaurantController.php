@@ -63,10 +63,23 @@ class RestaurantController extends Controller
 		$currency_array =array();
         $currency_array = CurrencyModel::all();
         $font_type=array();
+		
         // Get Country Array
         $country_array =array();
         $timezone_list =array();
+		
+		
+		$timestamp = time();
+        foreach (timezone_identifiers_list(\DateTimeZone::ALL) as $key => $value) {
+            date_default_timezone_set($value);
+            $timezone[$value] = $value . ' (UTC ' . date('P', $timestamp) . ')';
+        }
+		
+		$timezone_list = $timezone;
+		
+
         $country_array = CountryModel::all();
+		
         $result_data_count =array();
         $texture_array =array();
         $texture_array = TextureModel::all();
@@ -170,7 +183,7 @@ class RestaurantController extends Controller
                                     'email'           => 'required|email',
                                     'contact_number'  => 'required',
                                     'country_id'      => 'required',
-                                    //'time_zone'      => 'required',
+                                    'time_zone'      => 'required',
                                     'location'        => 'required',
                                     'currency_id'     => 'required',
                                     'restaurant_logo' => 'required|mimes:jpeg,png|max:2048',
@@ -187,7 +200,7 @@ class RestaurantController extends Controller
                                     'email'           => 'required|email',
                                     'contact_number'  => 'required',
                                     'country_id'      => 'required',
-                                    //'time_zone'      => 'required',
+                                    'time_zone'      => 'required',
                                     'location'        => 'required',
                                     'currency_id'     => 'required',
                                     'restaurant_logo' => 'mimes:jpeg,png|max:2048',
@@ -236,7 +249,7 @@ class RestaurantController extends Controller
                 $update_res->email           = $request->email;
                 $update_res->contact_number  = $request->contact_number;
                 $update_res->country_id      = $request->country_id;
-                //$update_res->time_zone_id      = $request->time_zone;
+                $update_res->time_zone_id      = $request->time_zone;
                 $update_res->location        = $request->location;
                 $update_res->currency_id     = $request->currency_id;
                // $update_res->texture_id     = $texture_id;

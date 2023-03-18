@@ -263,9 +263,9 @@
                                 <div class="col-md-12 error_message_parent">
                                     <select name="time_zone" class="form-control" id="time_zone">
                                         <option value="">Select TimeZone</option>
-                                        @if(count($country_array) > '0')
-                                            @foreach ($country_array as $value)
-                                                <option value="{{ $value->country_id }}">{{ $value->time_zone }}</option>
+                                        @if(count($timezone_list) > '0')
+                                            @foreach ($timezone_list as $value)
+                                                <option value="{{ $value}}">{{ $value }}</option>
                                             @endforeach
                                         @endif
                                     </select>

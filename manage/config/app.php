@@ -230,7 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'Share' => Jorenvh\Share\ShareFacade::class,
+        'Share' => Jorenvh\Share\ShareFacade::class,				'Helpers' => App\Helpers\Helpers::class,
 
     ],
 

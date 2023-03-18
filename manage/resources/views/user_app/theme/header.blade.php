@@ -114,8 +114,9 @@ if(Session::has('language_id')){
         <link rel="stylesheet" href="{!! asset('theme/user_app/css/owl.theme.css') !!}" />
         <link rel="stylesheet" href="{!! asset('theme/user_app/css/owl.transitions.css') !!}" />
         <link rel="stylesheet" href="{!! asset('theme/user_app/css/style.css?v=6') !!}" />
+		
         <style type="text/css">
- {{--
+ 
             @font-face {
                 font-family: {{$app_theme_font_type_1}}; 
                 src: url('../{{$app_theme_font_type_1_tff}}');
@@ -132,7 +133,7 @@ if(Session::has('language_id')){
                 font-family: {{$app_theme_font_type_4}}; 
                 src: url('../{{$app_theme_font_type_4_tff}}');
             }
- --}}
+
 
 
 
@@ -440,7 +441,7 @@ if(Session::has('language_id')){
                 font-style:{{$app_theme_font_style_1}};
                 font-family:{{$app_theme_font_type_1}};    
 				text-decoration:{{$app_theme_font_style_1}};
-                font-weight:{{$app_theme_font_style_1}};
+
             }
             a.menu_item_count, .details h5.main_color, .ms-profile-information th{
                 font-style:{{$app_theme_font_style_3}};

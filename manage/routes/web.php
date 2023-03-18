@@ -453,19 +453,23 @@ Route::get('/user_home/{id}', 'UserController@index')->name('user_home');
 
 
 
-Route::get('/main_categories/{parent_category}', 'UserController@main_categories')->name('main_categories')->middleware(CheckAppUserAccess::class);
+//Route::get('/main_categories/{parent_category}', 'UserController@main_categories')->name('main_categories')->middleware(CheckAppUserAccess::class);
+Route::get('/main_categories/{parent_category}', 'UserController@main_categories')->name('main_categories');
 
 
 
-Route::get('/sub_categories/{main_category}', 'UserController@sub_categories')->name('sub_categories')->middleware(CheckAppUserAccess::class);
+//Route::get('/sub_categories/{main_category}', 'UserController@sub_categories')->name('sub_categories')->middleware(CheckAppUserAccess::class);
+Route::get('/sub_categories/{main_category}', 'UserController@sub_categories')->name('sub_categories');
 
 
 
-Route::get('/menu_items/{sub_category}', 'UserController@menu_items')->name('menu_items')->middleware(CheckAppUserAccess::class);
+//Route::get('/menu_items/{sub_category}', 'UserController@menu_items')->name('menu_items')->middleware(CheckAppUserAccess::class);
+Route::get('/menu_items/{sub_category}', 'UserController@menu_items')->name('menu_items');
 
 
 
-Route::get('/menu-details/{menu_id}', 'UserController@menu_details')->name('menu-details')->middleware(CheckAppUserAccess::class);
+//Route::get('/menu-details/{menu_id}', 'UserController@menu_details')->name('menu-details')->middleware(CheckAppUserAccess::class);
+Route::get('/menu-details/{menu_id}', 'UserController@menu_details')->name('menu-details');
 
 
 

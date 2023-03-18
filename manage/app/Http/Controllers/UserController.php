@@ -107,6 +107,8 @@ class UserController extends Controller
             // Restaurant Details 
             $restaurant_details = RestaurantModel::where('restaurant_id', $restaurant_id)->with('parent_category_detail', 'main_category_detail', 'sub_category_detail', 'currency_detail', 'get_app_theme_font_type_1', 'get_app_theme_font_type_2', 'get_app_theme_font_type_3', 'get_app_theme_font_type_4', 'country_detail', 'texture_detail')->first();
             // Get Parent Categories
+			//echo "<pre>main_categories"; print_r($restaurant_details); echo "</pre>";
+        //exit();
             if (!empty($restaurant_details->parent_category_detail)) {
                 $parent_categories = $restaurant_details->parent_category_detail;
             }
@@ -181,7 +183,7 @@ class UserController extends Controller
         $parent_main_categories = array();
         $in_main_categories = array();
         $restaurant_details = RestaurantModel::where('restaurant_id', $restaurant_id)->with('currency_detail', 'parent_category_detail', 'main_category_detail', 'sub_category_detail', 'get_app_theme_font_type_1', 'get_app_theme_font_type_2', 'get_app_theme_font_type_3', 'get_app_theme_font_type_4', 'texture_detail')->first();
-        // echo "<pre>"; print_r($restaurant_details->time_zone_detail); echo "</pre>"; exit();
+        //echo "<pre>"; print_r($restaurant_details->time_zone_detail); echo "</pre>"; 
         // Restaurant Details
         $fav_restaurant = 0;
         if (!empty($restaurant_details)) {
@@ -194,11 +196,11 @@ class UserController extends Controller
                 $parent_categories = $restaurant_details->parent_category_detail;
             }
             // Get Main Categories
-            if (!empty($restaurant_details->time_zone_detail)) {
-                $timeZone = $restaurant_details->time_zone_detail->time_zone;
+            //if (!empty($restaurant_details->time_zone_detail)) {
+               // $timeZone = $restaurant_details->time_zone_detail->time_zone;
                 if (!empty($restaurant_details->main_category_detail)) {
                     foreach ($restaurant_details->main_category_detail as $main_category_detail) {
-                        if ($main_category_detail->display_type == 2) {
+                        if ($main_category_detail->display_type == 2 && $kkkkkkkk==1) {
                             $mytime = Carbon::now($timeZone);
                             $today_date = $mytime->toRfc850String();
                             $current_day = substr($today_date, 0, strrpos($today_date, ","));
@@ -223,19 +225,20 @@ class UserController extends Controller
                         } else {
                             $main_categories[] = $main_category_detail;
                         }
+						$main_categories[] = $main_category_detail;
                     }
                 }
-            }
+            //}
             // Get Sub Categories
             if (!empty($restaurant_details->sub_category_detail)) {
                 $sub_categories = $restaurant_details->sub_category_detail;
             }
             $parent_main_categories_all = CategoryModel::where('restaurant_id', $restaurant_id)->where('parent_category_id', $parent_category)->where('category_type', '1')->orderBy('order_display', 'ASC')->get();
             if (!empty($main_categories) && !empty($parent_main_categories_all)) {
-                if (!empty($restaurant_details->time_zone_detail)) {
-                    $timeZone = $restaurant_details->time_zone_detail->time_zone;
+                //if (!empty($restaurant_details->time_zone_detail)) {
+                   // $timeZone = $restaurant_details->time_zone_detail->time_zone;
                     foreach ($parent_main_categories_all as $main_category_detail) {
-                        if ($main_category_detail->display_type == 2) {
+                        if ($main_category_detail->display_type == 2  && $kkkkkkkk==1) {
                             $mytime = Carbon::now($timeZone);
                             $today_date = $mytime->toRfc850String();
                             $current_day = substr($today_date, 0, strrpos($today_date, ","));
@@ -263,7 +266,7 @@ class UserController extends Controller
                             $in_main_categories[] = $main_category_detail->category_id;
                         }
                     }
-                }
+                //}
                 // $parent_main_categories= $parent_main_categories_all;
             }
             if (!empty(Auth::User()->id)) {
@@ -285,9 +288,9 @@ class UserController extends Controller
         $restaurant_id   = $main_category_details->restaurant_id;
         $restaurant_details = array();
         $restaurant_details = RestaurantModel::where('restaurant_id', $restaurant_id)->with('parent_category_detail', 'main_category_detail', 'sub_category_detail', 'currency_detail', 'get_app_theme_font_type_1', 'get_app_theme_font_type_2', 'get_app_theme_font_type_3', 'get_app_theme_font_type_4', 'texture_detail')->first();
-        if (!empty($restaurant_details->time_zone_detail->time_zone)) {
-            $timeZone = $restaurant_details->time_zone_detail->time_zone;
-            if ($main_category_details->display_type == 2) {
+        //if (!empty($restaurant_details->time_zone_detail->time_zone)) {
+            //$timeZone = $restaurant_details->time_zone_detail->time_zone;
+            if ($main_category_details->display_type == 2 && $kkkkkkkk==1) {
                 $mytime = Carbon::now($timeZone);
                 $today_date = $mytime->toRfc850String();
                 $current_day = substr($today_date, 0, strrpos($today_date, ","));
@@ -314,11 +317,12 @@ class UserController extends Controller
                 } else {
                     $main_category = '';
                 }
-            } else {
+            /*} else {
                 $main_category = $main_category;
-            }
+            }*/
         } else {
-            $main_category = '';
+            $main_category = $main_category;
+			//$main_category = '';
         }
         $parent_category = $main_category_details->parent_category_id;
         $sub_category    = '';

@@ -22,7 +22,7 @@ if(Session::has('language_id')){
                         </li>
                         <li class="{{ Request::is('profile/*') || Request::is('my_profile/*') || Request::is('tags/*') || Request::is('allergies/*') || Request::is('favourite/*') ? 'active' : '' }}">
                         @if (!empty(Auth::User()->id))
-                            <a href="{{ url('profile')}}/{{Auth::User()->id}}"><i class="fa fa-user" style="color:<?=$restaurant_details->app_theme_color_1;?>;"></i>Profile </a>
+                            <a href="{{ url('profile')}}/{{Auth::User()->id}}" style="color:<?=$restaurant_details->app_theme_color_1;?>;"><i class="fa fa-user" ></i>Profile </a>
                         @else
                              <a href="{{url('user_login')}}/{{ $restaurant_details->restaurant_id}}" id="profile_tab" style="color:<?=$restaurant_details->app_theme_color_1;?>;"><i class="fa fa-user"></i>Profile </a>
                         @endif

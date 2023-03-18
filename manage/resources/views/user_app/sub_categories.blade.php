@@ -138,7 +138,7 @@ if(count($main_sub_categories) == '0')
                                                             {!! $fav_menu_icon !!}</a>
                                                         </h6>
                                                     </a>
-                                                    <h5>{{$menu->price}}</h5>
+                                                    <h5>{!!$menu->price!!}</h5>
                                                 </div>
                                             
                                     @endif
@@ -171,10 +171,10 @@ if(count($main_sub_categories) == '0')
                                     ?>
                                     <div class="likedislikerate">
                                         <a href="#" data-id="{{ $menu->menu_id }}" id="like_menu_item">
-                                            {!! $menu_like_icon !!}&nbsp;
-                                        </a>{{ $menu->total_like }} &nbsp;
+                                            {!! $menu_like_icon !!} 
+                                        </a>{{ $menu->total_like }}  
                                         <a href="#" data-id="{{ $menu->menu_id }}" id="unlike_menu_item">
-                                            {!! $menu_unlike_icon !!}&nbsp;
+                                            {!! $menu_unlike_icon !!} 
                                         </a>{{ $menu->total_dislike }}
                                     </div>
                                     </div>

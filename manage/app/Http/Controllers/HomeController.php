@@ -161,6 +161,16 @@ class HomeController extends Controller
         $restaurants=array();
         $currency_array=array();
         $country_array =array();
+		$timezone_list =array();
+		
+		
+		$timestamp = time();
+        foreach (timezone_identifiers_list(\DateTimeZone::ALL) as $key => $value) {
+            date_default_timezone_set($value);
+            $timezone[$value] = $value . ' (UTC ' . date('P', $timestamp) . ')';
+        }
+		
+		$timezone_list = $timezone;
         if ($user_type == "0"){
             $users = UserModel::whereIn('user_type',['1','2'])->get(); 
         }else if(($user_type == "1")){
@@ -174,7 +184,7 @@ class HomeController extends Controller
             }
             $restaurants = RestaurantModel::where('is_approved','1')->whereIn('restaurant_id',$resIds)->get();
         }
-        return view('user/index',['users_list' => $users,'country_array'=>$country_array,'currency_list'=>$currency_array,'restaurants'=>$restaurants]);
+        return view('user/index',['users_list' => $users,'country_array'=>$country_array,'currency_list'=>$currency_array,'restaurants'=>$restaurants,'timezone_list'=>$timezone_list]);
     } 
     // Add User 
     public function create_user(Request $request){

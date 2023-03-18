@@ -36,7 +36,7 @@
 
             <div class="row justify-content-center h-100 align-items-center">
 
-                <div class="col-md-6">
+                <div class="col-md-12">
 
                     <div class="authincation-content login_main">
 
@@ -48,9 +48,9 @@
 
                                     <div class="row">
 
-                                        <div class="col-md-3"></div>
+                                        <div class="col-md-4"></div>
 
-                                        <div class="col-md-4">
+                                        <div class="col-md-4" style="text-align: center;">
 
                                             <!--<img class="logo-abbr" src="{!! asset('theme/admin/image/milamenu_signup.png') !!}" alt="" height="50" />-->
 
@@ -81,187 +81,141 @@
                                     <form method="POST" enctype="multipart/form-data" id="create_user" action="javascript:void(0)" >
 
                                         <div class="mainErrorMessage"></div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
 
-                                        <div class="form-group">
+													<label class="mb-1"><strong>Restaurant Name</strong></label>
 
-                                            <label class="mb-1"><strong>Restaurant Name</strong></label>
+													<input type="text" class="form-control" name="restaurant_name" id="restaurant_name" placeholder="Restaurant Name" maxlength="50">
 
-                                            <input type="text" class="form-control" name="restaurant_name" id="restaurant_name" placeholder="Restaurant Name" maxlength="50">
+													<span id="errorMessage"></span>
 
-                                            <span id="errorMessage"></span>
+												</div>
 
-                                        </div>
+												<div class="form-group">
 
-                                        <div class="form-group">
+													<label class="mb-1"><strong>First Name</strong></label>
 
-                                            <label class="mb-1"><strong>First Name</strong></label>
+													<input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" maxlength="50">
 
-                                            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" maxlength="50">
+													<span id="errorMessage"></span>
 
-                                            <span id="errorMessage"></span>
+												</div>
 
-                                        </div>
+												
 
-                                        <div class="form-group">
+												
 
-                                            <label class="mb-1"><strong>Last Name</strong></label>
+												<div class="form-group">
 
-                                            <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" maxlength="50">
+													<label class="mb-1"><strong>Password</strong> <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-html="true" title="Minimum 6 character<br/>One Uppercase letter.<br/>One Lowercase letter."></i></label>
+													<input type="password" class="form-control" name="password" id="password" Placeholder="Password">
 
-                                            <span id="errorMessage"></span>
+													<span id="errorMessage"></span>
 
-                                        </div>
+												</div>
+												<div class="form-group">
 
-                                        <div class="form-group">
+													<label class="mb-1"><strong>Country</strong></label>
 
-                                            <label class="mb-1"><strong>Email</strong></label>
+													<div class="selectdiv">
 
-                                            <input type="email" class="form-control" name="email" id="email" placeholder="hello@example.com">
+														<select name="country_id" class="form-control" id="country_id">
 
-                                            <span id="errorMessage"></span>
+															<option value="">Select Country</option>
 
-                                        </div>
+															@if(count($country_list) > '0')
 
-                                        <div class="form-group">
+															@foreach ($country_list as $value)
 
-                                            <label class="mb-1"><strong>Password</strong> <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-html="true" title="Minimum 6 character<br/>One Uppercase letter.<br/>One Lowercase letter."></i></label>
-                                            <input type="password" class="form-control" name="password" id="password" Placeholder="Password">
+															<option value="{{ $value->country_id }}">{{ $value->country_name }}</option>
 
-                                            <span id="errorMessage"></span>
+															@endforeach
 
-                                        </div>
+															@endif
 
-                                        <div class="form-group">
+														</select>
 
-                                            <label class="mb-1"><strong>Confirm Password</strong> <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-html="true" title="Minimum 6 character<br/>One Uppercase letter.<br/>One Lowercase letter."></i></label>
+														<span id="errorMessage"></span>
 
-                                            <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password">
+													</div>
 
-                                            <span id="errorMessage"></span>
+												</div>
+												
+											</div>
 
-                                        </div>
+											<div class="col-md-6">
+												<div class="form-group">
 
-                                        <div class="form-group">
+													<label class="mb-1"><strong>Email</strong></label>
 
-                                            <label class="mb-1"><strong>Contact Number</strong></label>
+													<input type="email" class="form-control" name="email" id="email" placeholder="hello@example.com">
 
-                                            <input type="text" class="form-control" name="contact_number" id="contact_number" placeholder="Contact Number" min="0">
+													<span id="errorMessage"></span>
 
-                                            <span id="errorMessage"></span>
+												</div>
+												<div class="form-group">
+	
+													<label class="mb-1"><strong>Last Name</strong></label>
 
-                                        </div>
+													<input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" maxlength="50">
 
-                                        <div class="form-group">
+													<span id="errorMessage"></span>
 
-                                            <label class="mb-1"><strong>Contact Person</strong></label>
+												</div>
+												<div class="form-group">
 
-                                            <input type="text" class="form-control" name="contact_person" id="contact_person" placeholder="Contact Person" maxlength="50">
+													<label class="mb-1"><strong>Confirm Password</strong> <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-html="true" title="Minimum 6 character<br/>One Uppercase letter.<br/>One Lowercase letter."></i></label>
 
-                                            <span id="errorMessage"></span>
+													<input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password">
 
-                                        </div>
+													<span id="errorMessage"></span>
 
-                                        <div class="form-group">
+												</div>
+												
 
-                                            <label class="mb-1"><strong>Country</strong></label>
+											
 
-                                            <div class="selectdiv">
+												<div class="form-group">
 
-                                                <select name="country_id" class="form-control" id="country_id">
+													<label class="mb-1"><strong>Currency</strong></label>
 
-                                                    <option value="">Select Country</option>
+													<div class="selectdiv">
 
-                                                    @if(count($country_list) > '0')
+														<select name="currency" class="form-control" id="currency">
 
-                                                    @foreach ($country_list as $value)
+															<option value="">Select Currency</option>
 
-                                                    <option value="{{ $value->country_id }}">{{ $value->country_name }}</option>
+															@if(count($currency_list) > '0')
 
-                                                    @endforeach
+															@foreach ($currency_list as $value)
 
-                                                    @endif
+															<option value="{{ $value->currency_id }}">{{ $value->currency_name }}</option>
 
-                                                </select>
+															@endforeach
 
-                                                <span id="errorMessage"></span>
+															@endif
 
-                                            </div>
+														</select>
 
-                                        </div>
+														<span id="errorMessage"></span>
 
-                                        <div class="form-group">
+													</div>
 
-                                            <label class="mb-1"><strong>Address</strong></label>
+												</div>
+											</div>
+										</div>
+											<div class="form-group">
 
-                                            <textarea class="form-control" name="location" id="location" placeholder="Enter Address"></textarea>
+													<label class="mb-1"><strong>Address</strong></label>
 
-                                            <span id="errorMessage"></span>
+													<textarea class="form-control" name="location" id="location" placeholder="Enter Address"></textarea>
 
-                                        </div>
+													<span id="errorMessage"></span>
 
-                                        <div class="form-group">
-
-                                            <label class="mb-1"><strong>Currency</strong></label>
-
-                                            <div class="selectdiv">
-
-                                                <select name="currency" class="form-control" id="currency">
-
-                                                    <option value="">Select Currency</option>
-
-                                                    @if(count($currency_list) > '0')
-
-                                                    @foreach ($currency_list as $value)
-
-                                                    <option value="{{ $value->currency_id }}">{{ $value->currency_name }}</option>
-
-                                                    @endforeach
-
-                                                    @endif
-
-                                                </select>
-
-                                                <span id="errorMessage"></span>
-
-                                            </div>
-
-                                        </div>
-                                        {{--
-                                        <div class="form-group">
-
-                                            <label class="mb-1"><strong>Gender</strong></label>
-
-                                            <div class="selectdiv">
-
-                                                <select name="gender" class="form-control" id="gender">
-
-                                                    <option value="">Select Gender</option>
-
-                                                    <option value="0">Male</option>
-
-                                                    <option value="1">Female</option>
-
-                                                    <option value="2">Other</option>
-
-                                                </select>
-
-                                                <span id="errorMessage"></span>
-
-                                            </div>
-
-                                        </div> --}}
-
-                                        <div class="form-group">
-
-                                            <label class="mb-1"><strong>Date Of Birth</strong></label>
-
-                                            
-
-                                            <input type="date" class="form-control" name="date_of_birth" id="date_of_birth" placeholder="Date Of Birth">
-
-                                            <span id="errorMessage"></span>
-
-                                        </div>
+												</div>	  
+											  
 
                                         <div class="text-center mt-4">
 
@@ -270,7 +224,7 @@
                                         </div>
 
                                     </form>
-
+									
                                     <div class="new-account mt-3">
 
                                         <!--class="text-primary"-->
