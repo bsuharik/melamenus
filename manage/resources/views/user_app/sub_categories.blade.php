@@ -105,7 +105,7 @@ if(count($main_sub_categories) == '0')
                                     ?>
                                     @if($menu->allergy_tag > 0 && !empty($menu->allergy_tag))
                                      
-                                        <div class="entry disable_click">
+                                        <div class="entry">
                                             <a href="{{ url('menu-details') }}/{{ $menu->menu_id }}" class="menu_item_count menu_item_count_img_fix" data-menu_id="{{ $menu->menu_id }}" data-menu_count="{{$menu->menu_click_count}}"></a>
                                             <img src="{{$menu_img_src}}" alt="Menu image" style="opacity:0.3;">
 											<span class="allergy_red" style="opacity:1;"></span>
@@ -119,7 +119,7 @@ if(count($main_sub_categories) == '0')
                                                         {!! $fav_menu_icon !!}</a>
                                                     </h6>
                                                 </a>
-                                                <h5>{{$menu->price}}</h5>
+                                                <h5>{!!$menu->price!!}</h5>
                                                 <a href="{{ url('menu-details') }}/{{ $menu->menu_id }}" class="menu_item_count menu_item_count_img_fix" data-menu_id="{{ $menu->menu_id }}" data-menu_count="{{$menu->menu_click_count}}">
                                                 </a>
                                             </div>

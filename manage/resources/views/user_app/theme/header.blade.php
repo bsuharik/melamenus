@@ -662,14 +662,11 @@ if(Session::has('language_id')){
                                     <option data-lang="{{$language->short_name}}" data-href="#googtrans(en|{{$language->short_name}})" value="{{$language->id}}" class="notranslate"
                                         <?php echo $language_id == $language->id ? ' selected' : '';?>>{{$language->name}}</option>
                                 @endforeach
-                            @endif   
+                            @endif    
                         </select>
                         </div>
-                        <div class="form-control">
-                            <a href="javascript::void()" id="default_language_currency" class="btn button notranslate">Default</a>
-                        </div>
-                         <input type="submit" value="Go" class="btn button">
-                         <p>(Disclaimer: Currency not being necessarily exact.)</p>
+                      
+                         <input type="submit" value="" class="btn button" style="background-color:{{ $app_theme_color_1 }} !important;     background-image: url(/theme/user_app/img/go.png); background-repeat: no-repeat; background-position: center center; background-attachment: fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; background-size: contain;">
                     </div>
                 </form>
             </div>

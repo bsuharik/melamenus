@@ -204,6 +204,11 @@
 
         });
 
+
+	const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+	if (isMobile) {
+	  $( ".nav-control" ).click();
+	}
     </script>
 
     <!-- asColorPicker -->

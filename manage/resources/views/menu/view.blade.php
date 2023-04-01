@@ -29,7 +29,7 @@
         <div class="row page-titles mx-0">
             <div class="col-sm-9 p-md-0">
                 <div class="welcome-text">
-                    <h4>Menu Item Details</h4>
+                    <h4  class="welcome-text-h4">Menu Item Details</h4>
                 </div>
             </div>
             <div class="col-sm-3 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -170,7 +170,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
+			{{--          <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="section-title bold">Chef's Questions
@@ -213,7 +213,7 @@
                     @endif
                     </div>
                 </div>
-            </div>
+            </div>			--}}
             <div class="modal fade" id="exampleModalCenter">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">

@@ -868,7 +868,7 @@ class UserController extends Controller
             }
         }
         if (in_array("0", $tag_ids) || $tag_id == "0") {
-            $menu_detail->orderBy('total_like', 'desc');
+            $menu_detail->where('total_like','>', 0)->orderBy('total_like', 'desc');
         }
         $menu_details = $menu_detail->where('availiblity', '!=', '2')->get();
         //echo "<pre>"; print_r($menu_details);echo "</pre>"; exit();
@@ -1567,7 +1567,7 @@ class UserController extends Controller
             if (!empty($main_category_id)) {
                 $menu_detail->where('main_category', $main_category_id);
             }
-            $menu_details = $menu_detail->orderBy('total_like', 'desc')->orderBy('order_display', 'ASC')->where('availiblity', '!=', '2')->get();
+            $menu_details = $menu_detail->where('total_like','>', 0)->orderBy('total_like', 'desc')->orderBy('order_display', 'ASC')->where('availiblity', '!=', '2')->get();
         } else {
             $menu_details = '';
         }
@@ -1575,7 +1575,7 @@ class UserController extends Controller
             $return_array = [];
             if (count($menu_details) > '0') {
                 foreach ($menu_details as $key => $value) {
-                    if ($value->availiblity !== '2') {
+                    if ($value->availiblity !== '2' && $value->total_like > 0) {
                         $menu_like_icon = '<i class="fa fa-thumbs-o-up thumbs_icon" aria-hidden="true"></i>';
                         $menu_unlike_icon = '<i class="fa fa-thumbs-o-down thumbs_down_icon" aria-hidden="true"></i>';
                         $menu_fav_icon = '<i class="fa fa-heart-o" aria-hidden="true" ></i>';

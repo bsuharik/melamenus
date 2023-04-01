@@ -122,11 +122,16 @@ class RegisterController extends Controller
                                     'last_name'       => $request->last_name,
                                 );
                     // Send email to restaurant owner
-                    /*Mail::send('email.user_registartion', ["data"=>$data] , function($message) use ($to_name, $to_email){
+                    Mail::send('email.user_registartion', ["data"=>$data] , function($message) use ($to_name, $to_email){
                         $message->to($to_email, $to_name)->subject('Mela Menus - Restaurant Created');
-                        $message->from('testcrestemail@gmail.com','Mela Menus');
-                    });*/
-                    return response()->json(['success'=> 'Your Restaurant - '.$request->restaurant_name.' is registered successfully. Wait for admin to approve your restaurant request']);
+                        $message->from('info@melamenus.com','Mela Menus');
+                    });
+					// Send email to Admin
+                    Mail::send('email.user_registartion', ["data"=>$data] , function($message) use ($to_name, $to_email){
+                        $message->to('info@melamenus.com', $to_name)->subject('Mela Menus - New Restaurant Created');
+                        $message->from('info@melamenus.com','Mela Menus');
+                    });
+                    return response()->json(['success'=> 'Your Restaurant - '.$request->restaurant_name.' is registered successfully. Log in to continue working']);
                 }
                 else
                 {

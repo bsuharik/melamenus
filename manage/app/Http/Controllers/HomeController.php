@@ -226,8 +226,20 @@ class HomeController extends Controller
             $add_rest->time_zone_id      = $request->time_zone;
             $add_rest->currency_id     = $request->currency;
             $add_rest->is_approved     = '1';
-            if(!empty($parenet_restaurant_details->texture_id)){
+            /*if(!empty($parenet_restaurant_details->texture_id)){
                 $add_rest->texture_id     = $parenet_restaurant_details->texture_id;
+            }*/
+			if(!empty($parenet_restaurant_details->app_theme_font_type_1)){
+                $add_rest->app_theme_font_type_1 = $parenet_restaurant_details->app_theme_font_type_1;
+            }
+            if(!empty($parenet_restaurant_details->app_theme_font_type_2)){
+                $add_rest->app_theme_font_type_2 = $parenet_restaurant_details->app_theme_font_type_2;
+            }
+            if(!empty($parenet_restaurant_details->app_theme_font_type_3)){
+                $add_rest->app_theme_font_type_3 = $parenet_restaurant_details->app_theme_font_type_3;
+            }
+            if(!empty($parenet_restaurant_details->app_theme_font_type_4)){
+                $add_rest->app_theme_font_type_4 = $parenet_restaurant_details->app_theme_font_type_4;
             }
             if(!empty($parenet_restaurant_details->app_theme_color_1)){
                 $add_rest->app_theme_color_1 = $parenet_restaurant_details->app_theme_color_1;
@@ -427,7 +439,7 @@ class HomeController extends Controller
                                 File::copy($oldPath,$newPath);   
                             }
                             $destinationPath = config('images.menu_url').$menu_details_get->restaurant_id;
-                            $menu_create->menu_image     = $menu_details_get->menu_image;
+                            //$menu_create->menu_image     = $menu_details_get->menu_image;
                             $menu_create->availiblity    = $menu_details_get->availiblity;
                             $menu_create->ingredients   = $menu_details_get->ingredients;
                             $menu_create->allergies     = $menu_details_get->allergies;

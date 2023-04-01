@@ -1371,7 +1371,7 @@ th{
     color: #6742a8;
 }
 .thumbs_icon{
-        color: #6742a8;
+    color: #2e5090;
     font-size: 21px;
 }
 .thumbs_down_icon{
@@ -2010,7 +2010,7 @@ box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.18);
     vertical-align: middle;
     font-size: 22px;
     color: #FFF;
-    margin-top: 12px;
+    margin-top: 9px;
 }
 .allergy_tag_main{
     position: absolute;
@@ -2249,9 +2249,9 @@ div#t1 .app_fav_items_main, div#t2 .app_fav_items_main{
 span.allergy_red {
     position: absolute;
     background-image: url(../img/allergy-icon.png);
-    z-index: 9999;
+    z-index: 1;
     top: 0;
-    left: 100px;
+    left: 58px;
     background-repeat: no-repeat;
     height: 47px;
     width: 47px;

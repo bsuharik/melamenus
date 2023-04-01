@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Carbon;
 use Validator;
 use File;
-
+use Mail;
 use App\Models\ViewsModel;
 use App\Models\{RestaurantModel,CategoryModel,MenuModel,TableModel,CurrencyModel,UserModel,CountryModel,TextureModel,FontModel};
 use Auth;
@@ -28,6 +28,7 @@ class RestaurantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public static function restaurant_details($id){
+		
         $restaurant_details=RestaurantModel::where('restaurant_id',$id)->with('parent_category_detail','currency_detail','country_detail','menu_detail','table_detail','user_detail')->first();
         $category_count = "0";
         $menu_count     = "0";
@@ -123,7 +124,10 @@ class RestaurantController extends Controller
 		$qr_image = '/'.config('images.qr_code_url').$id."/";
 		$table_data = TableModel::where('restaurant_id',$id)->first();
 		//echo "<pre>"; print_r(explode(" ", $table_data->qr_code));  echo "1</pre>"; exit();
-		$qr_image .= explode(" ", $table_data->qr_code)[0];
+		if($table_data){
+			$qr_image .= explode(" ", $table_data->qr_code)[0];
+		}
+		
 		
 		//restaurant link
 		$rest_link = '/user_home/'.$id.'?prew=y';
@@ -137,10 +141,11 @@ class RestaurantController extends Controller
             $parent_restaurant_details=RestaurantModel::where('restaurant_id',$user_detail->restaurant_owner_id)->with('user_detail')->first();
             $restaurant_details->restaurant_user =Auth::User();
         }
-		
+		$font_type_detail = FontModel::where('restaurant_id',$id)->orWhere('restaurant_id',$user_detail->restaurant_owner_id)->orWhere('is_default','1')->get();
+        $restaurant_details->font_type_detail =$font_type_detail;
 		
        
-       // echo "<pre>"; print_r($date_v);  echo "</pre>"; exit();
+		//echo "<pre>"; print_r($user_detail);  echo "</pre>"; exit();
         return view('restaurant/details',['restaurant' => $restaurant_details, 'category_count' => $category_count, 'menu_count' => $menu_count, 'table_count' => $table_count, 'currency_name' => $currency_name, 'country_name' => $country_name,'parent_restaurant_details'=>$parent_restaurant_details, 'currency_list' => $currency_array,'country_list' => $country_array,'texture_array'=>$texture_array, 'timezone_list' => $timezone_list, 'qr_image' => $qr_image, 'rest_link' => $rest_link, 'views_array' => $views_array, 'demo_views' => $demo_views, 'count_v' => $count_v, 'date_v' => $date_v]);
     } 
     // Update Restaurant Form

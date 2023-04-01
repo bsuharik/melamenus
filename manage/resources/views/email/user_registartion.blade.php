@@ -6,7 +6,7 @@
             Hello {{ $data['first_name'] }} {{ $data['last_name'] }},</br>
         </p>
         <p>
-            Your Restaurant - {{ $data['restaurant_name'] }} is registered successfully. Wait for admin to approve your restaurant request. </br>
+            Your Restaurant - {{ $data['restaurant_name'] }} is registered successfully. Log in to continue working </br>
         </p>
         <p>
             Thank You, </br>

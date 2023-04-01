@@ -446,7 +446,7 @@ $(document).ready(function (e) {
         $qr_code_image = $(this).attr("data-id");
         $table_number = $(this).attr("data-table");
         $chair_number = $(this).attr("data-chairs");
-        var html = '<div class="wrap-box" style="max-width: 400px; margin: 0 auto;width: 100%;"><div style="text-align:center;"><img src="'+$qr_code_image+'" alt="qr_code"><div class="print-footer" style="border-top:3px solid #2450a3; padding: 10px;color: #000;text-align: left; padding-top:20px; margin-top:40px" ><span style="font-size: 24px; vertical-align: middle;font-family: "poppins", sans-serif;">Powered by <img src="'+image_url+'/milamenu_auth.png" style="vertical-align: middle; width: 100px; height: auto; "></span><label style="font-size: 22px; vertical-align: bottom;text-align: right;float: right;">'+$table_number+' | '+$chair_number+'</label></div></div></div>';
+        var html = '<div class="wrap-box" style="max-width: 400px; margin: 0 auto;width: 100%;"><div style="text-align:center;"><img src="'+$qr_code_image+'" alt="qr_code"><div class="print-footer" style="text-align: center; border-top:3px solid #2450a3; padding: 10px;color: #000;text-align: center; padding-top:20px; margin-top:40px" ><span style="font-size: 24px; vertical-align: middle;font-family: "poppins", sans-serif;"><img src="'+image_url+'/milamenu_auth.png" style="vertical-align: middle; width: 100px; height: auto; "></span><label style="font-size: 22px; vertical-align: bottom;text-align: right;float: right;">'+$table_number+' | '+$chair_number+'</label></div></div></div>';
         $('#print_qr_code_div').html(html);
         var divContents = $("#print_qr_code_div").html();
         // console.log(divContents); return false;
@@ -521,7 +521,7 @@ $(document).ready(function () {
         var qrcode = $(this).attr("data-qr_code");
         var qrcode_url = $("#qrcode_url").val();
         var file_name="qr_code_"+table_number+"_"+chairs+".png";
-        var html='<div class="wrap-box" style="max-width: 400px; margin: 0 auto;width: 100%;"><div style="text-align:center;"><img src="'+qrcode_url+'/'+qrcode+'" alt="qr_code"><div class="print-footer" style="border-top:3px solid #2450a3; padding: 10px;color: #000;text-align: left; padding-top:20px; margin-top:40px" ><span style="font-size: 24px; vertical-align: middle;">Powered by<img src="'+image_url+'/milamenu_auth.png" style="vertical-align: middle; width: 100px; height: auto; "></span><label style="font-size: 22px; vertical-align: bottom;text-align: right;float: right;">'+table_number+' | '+chairs+'</label></div></div></div>';
+        var html='<div class="wrap-box" style="max-width: 400px; margin: 0 auto;width: 100%;"><div style="text-align:center;"><img src="'+qrcode_url+'/'+qrcode+'" alt="qr_code"><div class="print-footer" style="text-align: center; border-top:3px solid #2450a3; padding: 10px;color: #000;text-align: center; padding-top:20px; margin-top:40px" ><span style="font-size: 24px; vertical-align: middle;"><img src="'+image_url+'/milamenu_auth.png" style="vertical-align: middle; width: 100px; height: auto; "></span><label style="font-size: 22px; vertical-align: bottom;text-align: right;float: right;">'+table_number+' | '+chairs+'</label></div></div></div>';
         // console.log(html); return false;
         $('#myHtml').html(html);
         $('#myHtml').show();
