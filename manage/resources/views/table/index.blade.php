@@ -45,9 +45,9 @@
                     <h4>Manage Table</h4>
                     <div class="row">
                         <div class="col-md-9">
-                            <a data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary col-sm-3 mt-3" style="color:#fff!important;">Add Table</a>
-                            <a data-toggle="modal" data-target="#importTableModal" class="btn btn-primary  col-sm-3 mt-3" style="color:#fff!important;">Import Table</a>
-                            <a download="csv_table_file.csv" href="..{{Storage::url('csv_table_file.csv') }}" title="csv_table_file"class="btn btn-primary col-sm-3 mt-3" style="color:#fff!important;">Sample CSV File</a>
+                            <a data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary col-sm-2 mt-2" style="color:#fff!important;">Add Table</a>
+                            <a data-toggle="modal" data-target="#importTableModal" class="btn btn-primary  col-sm-2 mt-2" style="color:#fff!important;">Import Table</a>
+                            <a download="csv_table_file.csv" href="..{{Storage::url('csv_table_file.csv') }}" title="csv_table_file"class="btn btn-primary col-sm-2 mt-2" style="color:#fff!important;">Sample CSV File</a>														<a data-toggle="modal" class="btn btn-primary col-sm-2 mt-2 print_all_qr_code" style="color:#fff!important;">Print All QR Codes</a>							
                         </div>
                         <div class="col-md-3">
                             <div class="input-group search-area ml-3 d-inline-flex mt-3">
@@ -454,7 +454,7 @@ $(document).ready(function (e) {
         a.document.write(divContents);
         a.document.close();
         a.print();
-    });
+    });	// Print ALL qr code image     $('body').delegate('.print_all_qr_code','click', function(){        var image_url = $("#image_url").val();        $qr_code_image = $(this).attr("data-id");        $table_number = $(this).attr("data-table");        $chair_number = $(this).attr("data-chairs");        var html = '{!! $html_all_qr !!}';        $('#print_qr_code_div').html(html);        var divContents = $("#print_qr_code_div").html();        // console.log(divContents); return false;        var a = window.open();        a.document.write(divContents);        a.document.close();        a.print();    });
     // Set data in delete modal popup 
     $(".deleteTable").click(function (e) {
         $table_id = $(this).attr("data-table");

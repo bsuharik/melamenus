@@ -170,11 +170,11 @@
 
 
 
-                            <a data-toggle="modal" data-target="#importMenuModal" class="btn btn-primary  col-sm-3 mt-3" style="color:#fff!important;">Import Menu Item</a>
+                            <!--<a data-toggle="modal" data-target="#importMenuModal" class="btn btn-primary  col-sm-3 mt-3" style="color:#fff!important;">Import Menu Item</a>
 
 
 
-                            <a download="csv_menu_file.csv" href="..{{Storage::url('csv_menu_file.csv') }}" title="csv_menu_file"class="btn btn-primary  col-sm-3 mt-3" style="color:#fff!important;">Sample CSV File</a>
+                            <a download="csv_menu_file.csv" href="..{{Storage::url('csv_menu_file.csv') }}" title="csv_menu_file"class="btn btn-primary  col-sm-3 mt-3" style="color:#fff!important;">Sample CSV File</a>-->
 
 
 

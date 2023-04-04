@@ -37,7 +37,22 @@ class TableController extends Controller
             }
             $restaurant_name=$restaurants->restaurant_name;
         }
-        return view('table/index',['restaurant_id'=>$id,'restaurant_name' => $restaurant_name, 'table_list' => $table_array]);
+		$html_all_qr = '';
+		if(!empty($table_array)){https://manage.melamenus.com/uploads/images/qr_codes/12/qrcode_1_1.png
+			foreach($table_array as $table){
+
+				$qr_codes = explode(' ',$table->qr_code);
+			
+					foreach($qr_codes as $k=>$qr){
+						$chair = $k+1;
+						$html_all_qr .= '<div class="wrap-box" style="width: 30%;  float: left;   margin: 0 auto;"><div style="text-align:center;"><img src="../uploads/images/qr_codes/'.$id.'/'.$qr.'" alt="qr_code"><div class="print-footer" style="text-align: center; border-top:3px solid #2450a3; padding: 10px;color: #000;text-align: center; padding-top:20px; margin-top:40px" ><span style="font-size: 24px; vertical-align: middle;font-family: "poppins", sans-serif;"><img src="/theme/admin/image/milamenu_auth.png" style="vertical-align: middle; width: 100px; height: auto; "></span><label style="font-size: 22px; vertical-align: bottom;text-align: right;float: right;">'.$chair.' | '.$table->chairs.'</label></div></div></div>';					
+					}
+				//
+				
+			}
+		}
+	
+        return view('table/index',['restaurant_id'=>$id,'restaurant_name' => $restaurant_name, 'table_list' => $table_array, 'html_all_qr' => $html_all_qr]);
     } 
     // Validate and Add Table
     public function create(Request $request){

@@ -1429,6 +1429,8 @@ class UserController extends Controller
         } else {
             $menu_details = '';
         }
+		$old_cat = '';
+		$display = '';
         // echo "<pre>";print_r($menu_details); echo "</pre>"; exit();
         if (!empty($menu_details)) {
             $return_array = [];
@@ -1508,10 +1510,22 @@ class UserController extends Controller
                     } else {
                         $value->price = $currency_icon . " 00";
                     }
+					$mainCat = '';
+					$mainCat = CategoryModel::where('category_id', $value->main_category)->first();
+					
+					if($mainCat->category_name != $old_cat){
+						$old_cat = $mainCat->category_name;
+						$display = '';
+					} else {
+						$display = 'display:none;';
+					}
+					
                     $return_array[] = array(
                         'menu_id'       => $value->menu_id,
                         'menu_image'    => $value->menu_image,
                         'name'          => $value->name,
+                        'category'          => $mainCat->category_name,
+                        'display'          => $display,
                         'menu_like_icon'   => $menu_like_icon,
                         'menu_unlike_icon' => $menu_unlike_icon,
                         'menu_fav_icon'    => $menu_fav_icon,

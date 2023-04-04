@@ -103,6 +103,7 @@ $(document).ready(function (e) {
                                     }
                                     var t2_html =''; 
                                    t2_html +='<div class="col-md-12">';
+                                   t2_html +='<div class="category_all" style="border: 2px solid #a2a2a2; border-radius: 5px; padding: 5px; text-align: center; margin: 10px; '+value1['display']+'">'+value1['category']+'</div>';
                                    if(value1['allergy_tag'] >0){
                                        t2_html +='<div class="entry disable_click">';
                                        t2_html +='<a href="'+main_url+'/'+value1['menu_id']+'" class="menu_item_count menu_item_count_img_fix" data-menu_id="'+value1['menu_id']+'" data-menu_count="'+value1['menu_click_count']+'">';
