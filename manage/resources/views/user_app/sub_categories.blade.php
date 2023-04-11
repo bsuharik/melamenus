@@ -107,7 +107,9 @@ if(count($main_sub_categories) == '0')
                                      
                                         <div class="entry">
                                             <a href="{{ url('menu-details') }}/{{ $menu->menu_id }}" class="menu_item_count menu_item_count_img_fix" data-menu_id="{{ $menu->menu_id }}" data-menu_count="{{$menu->menu_click_count}}"></a>
-                                            <img src="{{$menu_img_src}}" alt="Menu image" style="opacity:0.3;">
+                                            <div class="menu_item_img">
+												<img src="{{$menu_img_src}}" alt="Menu image" style="opacity:0.3;">
+											</div>
 											<span class="allergy_red" style="opacity:1;"></span>
                                             <div class="content content_new">
                                             <div class="price price_cate">
@@ -127,7 +129,10 @@ if(count($main_sub_categories) == '0')
                                     @else 
                                         <div class="entry">
                                             <a href="{{ url('menu-details') }}/{{ $menu->menu_id }}" class="menu_item_count menu_item_count_img_fix" data-menu_id="{{ $menu->menu_id }}" data-menu_count="{{$menu->menu_click_count}}">
-                                            <img src="{{$menu_img_src}}" alt="Menu image"></a>
+											<div class="menu_item_img">
+												<img src="{{$menu_img_src}}" alt="Menu image">
+											</div>	
+												</a>
                                             <div class="content content_new">
                                                 <div class="price price_cate">
                                                     <a href="{{ url('menu-details') }}/{{ $menu->menu_id }}" class="menu_item_count menu_item_count_img_fix" data-menu_id="{{ $menu->menu_id }}" data-menu_count="{{$menu->menu_click_count}}">

@@ -1558,8 +1558,9 @@ footer, .page-wrap:after {
     font-weight: 600;
 }
 .app-section .entry{
-    padding: 15px 15px 15px 15px !important;
+    padding: 15px 15px 20px 15px !important;
     margin-bottom: 0px;
+
 }
 .app-section .entry h5 {
     text-align: left;
@@ -2212,7 +2213,7 @@ box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.18);
 }
 .categories-list-ctm .entry .menu_item_count_img_fix img{
     width: 130px;
-    height: 130px !important;
+    /*height: 130px !important;*/
 }
 .slider-slick .slick-dots{
     bottom: -30px;
@@ -2229,7 +2230,10 @@ box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.18);
 /*}*/
 .dtl_ctm_icon {
     position: absolute;
-    bottom: 15px;
+    bottom: 3px;
+}
+.menu_item_img{
+	
 }
 .menu-item-details{
     position: unset;
@@ -2237,7 +2241,7 @@ box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.18);
 .app-section-category .likedislikerate {
     position: absolute;
     right: 10px;
-    bottom: 15px;
+    bottom: 3px;
 }
 div#t1 .app-title, div#t2 .app-title,
 div#t1 .app_fav_items_main, div#t2 .app_fav_items_main{

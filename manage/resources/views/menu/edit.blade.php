@@ -163,7 +163,7 @@
                                     <tr>
                                         <th scope="row">Parent Category</th>
                                         <td class="" style="margin-right: -33px;">
-                                            <span class="row col-md-10 error_message_parent" style="padding: 0px;float: left;">
+                                            <span class="row col-md-10 error_message_parent select_f" style="padding: 0px;float: left;">
                                                 <select name="parent_category" id="parent_category" class="form-control">
                                                     <option value="">Select Parent Category</option>
                                                 @if(count($parent_categories) > '0')
@@ -182,7 +182,7 @@
                                     <tr>
                                         <th scope="row">Main Category</th>
                                         <td class="" style="margin-right: -33px;">
-                                            <span class="row col-md-10 error_message_parent" style="padding: 0px;float: left;">
+                                            <span class="row col-md-10 error_message_parent select_f" style="padding: 0px;float: left;">
                                                 <select name="main_category" id="main_category" class="form-control">
                                                     <option value="">Select Main Category</option>
                                                 @if(count($main_categories) > '0')
@@ -201,7 +201,7 @@
                                     <tr>
                                         <th scope="row">Sub Category</th>
                                         <td class="" style="margin-right: -33px;">
-                                            <span class="row col-md-10 error_message_parent" style="padding: 0px;float: left;">
+                                            <span class="row col-md-10 error_message_parent select_f" style="padding: 0px;float: left;">
                                                 <select name="sub_category" id="sub_category" class="form-control">
                                                     <option value="">Select Sub Category</option>
                                                 @if(count($sub_categories) > '0')
@@ -220,13 +220,15 @@
                                     <tr>
                                         <th scope="row">Availiblity</th>
                                         <td class="row error_message_parent">  
-                                            <select name="availiblity" id="availiblity" class="form-control">
-                                                <option value="">Select Availiblity</option>
-                                                <option value="1" {{ ( $menu_detail->availiblity == '1') ? 'selected' : '' }} >Available</option>
-                                                <option value="0" {{ ( $menu_detail->availiblity == '0') ? 'selected' : '' }}>Not Available</option>
-                                                <option value="2" {{ ( $menu_detail->availiblity == '2') ? 'selected' : '' }}>Hide</option>
-                                            </select> 
-                                            <div id="errorMessage"></div>
+											<span class="col-md-12 error_message_parent select_f" style="padding: 0px;float: left;">
+												<select name="availiblity" id="availiblity" class="form-control">
+													<option value="">Select Availiblity</option>
+													<option value="1" {{ ( $menu_detail->availiblity == '1') ? 'selected' : '' }} >Available</option>
+													<option value="0" {{ ( $menu_detail->availiblity == '0') ? 'selected' : '' }}>Not Available</option>
+													<option value="2" {{ ( $menu_detail->availiblity == '2') ? 'selected' : '' }}>Hide</option>
+												</select> 
+												<div id="errorMessage"></div>
+											</span>
                                         </td>
                                     </tr>
                                     <tr>

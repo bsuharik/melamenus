@@ -414,7 +414,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row mt10 error_message_parent" id="update_display_type_div" style="display: none;">
+                                                <div class="row mt10 error_message_parent" id="update_display_type_div" style="display: block;">
                                                     <br><label>Display Type</label>
                                                     <select name="display_type" class="form-control" id="update_display_type">
                                                         <option value="1">Always Display</option>
@@ -629,6 +629,7 @@
                         $("#category_type").change(function() {
 
                             $category_type = $(this).val();
+							console.log($category_type);
                             if ($category_type == "0") {
                                 $('#category_name_div').show();
                                 $('#parent_category_id_div').hide();
@@ -740,7 +741,7 @@
                         });
                         // Set data in update modal popup 
                         $(".updateCategory").click(function(e) {
-                            $("#update_display_type_div").hide();
+                            $("#update_display_type_div").show();
                             $('#update_custome_type_div').hide();
                             $('#update_start_time').val('');
                             $('#update_end_time').val('');

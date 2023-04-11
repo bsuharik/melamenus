@@ -668,12 +668,13 @@ class UserController extends Controller
         $main_sub_categories = [];
         // Get Menu details
         $menu_details = array();
+		
         if (is_numeric($menu_id)) {
             $menuDetails = MenuModel::where('menu_id', $menu_id)->with('allergie_detail', 'menu_image_detail')->first();
         } else {
             $menuDetails = MenuModel::where('slug', $menu_id)->with('allergie_detail', 'menu_image_detail')->first();
         }
-        // echo "<pre>"; print_r($menuDetails); echo "</pre>"; exit();
+
         $restaurant_id = $menuDetails->restaurant_id;
         $restaurant_details = array();
         $restaurant_details = RestaurantModel::where('restaurant_id', $restaurant_id)->with('parent_category_detail', 'main_category_detail', 'sub_category_detail', 'currency_detail', 'get_app_theme_font_type_1', 'get_app_theme_font_type_2', 'get_app_theme_font_type_3', 'get_app_theme_font_type_4', 'texture_detail')->first();
@@ -822,12 +823,16 @@ class UserController extends Controller
         }
         $menu_link = url()->current();
         $socialShare = \Share::page('https://projectdemo.app:8443/Mila_Menu_Admin/public/menu-details/33')->facebook()->twitter()->reddit()->linkedin()->whatsapp()->telegram();
+		
 
+		
         $item_name = isset($menuDetails->name)  ? $menuDetails->name : '';
         $restaurant_name = isset($restaurant_details->restaurant_name) ? $restaurant_details->restaurant_name : '';
         $meta_title = 'You have to try this! - ' . $item_name . ' - ' . $restaurant_name . ' - Mela Menu';
-        $meta_image = url('/') . '/' . config('images.menu_url') . $restaurant_details->restaurant_id . '/' . $menu_details->menu_image;
-        return view('user_app/menu_details', ['meta_title' => $meta_title, 'meta_image' => $meta_image, 'parent_categories' => $parent_categories, 'main_categories' => $main_categories, 'sub_categories' => $sub_categories, 'restaurant_details' => $restaurant_details, 'menu_details' => $menu_details, 'currency_icon' => $currency_icon, 'chef_questions' => $chef_questions_array, 'tag_details' => $tag_details, 'user_menu_votes' => $user_menu_votes, 'menu_fav_count' => $menu_fav_count, 'allergie_details' => $allergie_details, 'fav_restaurant' => $fav_restaurant, 'socialShare' => $socialShare]);
+        $meta_image = url('/') . '/' . config('images.menu_url') . $restaurant_details->restaurant_id . '/' . $menuDetails->menu_image;
+
+
+        return view('user_app/menu_details', ['meta_title' => $meta_title, 'meta_image' => $meta_image, 'parent_categories' => $parent_categories, 'main_categories' => $main_categories, 'sub_categories' => $sub_categories, 'restaurant_details' => $restaurant_details, 'menu_details' => $menuDetails, 'currency_icon' => $currency_icon, 'chef_questions' => $chef_questions_array, 'tag_details' => $tag_details, 'user_menu_votes' => $user_menu_votes, 'menu_fav_count' => $menu_fav_count, 'allergie_details' => $allergie_details, 'fav_restaurant' => $fav_restaurant, 'socialShare' => $socialShare]);
     }
     // get Menus by tag
     public function get_menus_by_tag(Request $request)
