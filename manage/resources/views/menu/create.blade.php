@@ -455,7 +455,7 @@
 
 
         <div class="new"> </div>
-
+		{{--
         <div class="col-md-12">
 
             <div class="card">
@@ -526,7 +526,7 @@
 
             </div>
 
-        </div>
+        </div>--}}
 
     </form>
 

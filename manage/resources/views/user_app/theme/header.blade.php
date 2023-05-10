@@ -614,7 +614,7 @@ if(Session::has('language_id')){
             @endif
                 <div class="container"> 
                     <div class="panel-control-left">
-                        <a href="#" data-activates="slide-out-left" class="sidenav-control-left"><i class="fa fa-bars"></i></a>
+                        <a href="#" data-activates="slide-out-left" class="sidenav-control-left"><i class="fa fa-bars" style="margin-left: 12px;"></i></a>
                     </div> 
                     <div class="site-title">
                          <?php 

@@ -175,12 +175,12 @@ if(count($main_sub_categories) == '0')
                                         } 
                                     ?>
                                     <div class="likedislikerate">
-                                        <a href="#" data-id="{{ $menu->menu_id }}" id="like_menu_item">
+                                        <a href="javascript:void(0);" data-id="{{ $menu->menu_id }}" id="like_menu_item" class="like_id_{{ $menu->menu_id }}">
                                             {!! $menu_like_icon !!} 
-                                        </a>{{ $menu->total_like }}  
-                                        <a href="#" data-id="{{ $menu->menu_id }}" id="unlike_menu_item">
+                                        </a><span class="like_id_count_{{ $menu->menu_id }}">{{ $menu->total_like }} </span> 
+                                        <a href="javascript:void(0);" data-id="{{ $menu->menu_id }}" id="unlike_menu_item" class="unlike_id_{{ $menu->menu_id }}">
                                             {!! $menu_unlike_icon !!} 
-                                        </a>{{ $menu->total_dislike }}
+                                        </a><span class="unlike_id_count_{{ $menu->menu_id }}">{{ $menu->total_dislike }}</span> 
                                     </div>
                                     </div>
                                 </div>
@@ -304,9 +304,9 @@ $(document).ready(function (e) {
                            t2_html +='<div class="dtl_ctm_icon" id="menu_tag_icons">'+$tag_icons+'</div>';
                            t2_html +='<div class="likedislikerate">';
                            // t2_html +='<a href="'+main_url+'/'+value1['menu_id']+'"></a>';
-                           t2_html +='<a href="#" data-id="'+value1['menu_id']+'" id="like_menu_item">'+value1['menu_like_icon']+'&nbsp;</a>'+value1['total_like']+' &nbsp;';
-                           t2_html +='<a href="#" data-id="'+value1['menu_id']+'" id="unlike_menu_item">'+value1['menu_unlike_icon']+'&nbsp;</a>';
-                           t2_html += ''+value1['total_dislike'];
+                           t2_html +='<a href="javascript:void(0);" data-id="'+value1['menu_id']+'" id="like_menu_item"  class="like_id_'+value1['menu_id']+'">'+value1['menu_like_icon']+'&nbsp;</a><span class="like_id_count_'+value1['menu_id']+'">'+value1['total_like']+'</span> &nbsp; ';
+                           t2_html +='<a href="javascript:void(0);" data-id="'+value1['menu_id']+'" id="unlike_menu_item"  class="unlike_id_'+value1['menu_id']+'">'+value1['menu_unlike_icon']+'&nbsp;</a>';
+                           t2_html += '<span class="unlike_id_count_'+value1['menu_id']+'">'+value1['total_dislike'] + '</span>';
                            t2_html +='</div>';
                            t2_html +='</div>';
                            t2_html +='</div>';
@@ -393,9 +393,9 @@ $(document).ready(function (e) {
                            t3_html +='<div class="dtl_ctm_icon" id="menu_tag_icons">'+$tag_icons+'</div>';
                            t3_html +='<div class="likedislikerate">';
                            // t3_html +='<a href="'+main_url+'/'+value1['menu_id']+'"></a>';
-                           t3_html +='<a href="#" data-id="'+value1['menu_id']+'" id="like_menu_item">'+value1['menu_like_icon']+'&nbsp;</a>'+value1['total_like']+' &nbsp;';
-                           t3_html +='<a href="#" data-id="'+value1['menu_id']+'" id="unlike_menu_item">'+value1['menu_unlike_icon']+'&nbsp;</a>';
-                           t3_html += ''+value1['total_dislike'];
+                           t3_html +='<a href="javascript:void(0);" data-id="'+value1['menu_id']+'" id="like_menu_item"  class="like_id_'+value1['menu_id']+'">'+value1['menu_like_icon']+'&nbsp;</a><span class="like_id_count_'+value1['menu_id']+'">'+value1['total_like']+'</span> &nbsp;';
+                           t3_html +='<a href="javascript:void(0);" data-id="'+value1['menu_id']+'" id="unlike_menu_item"  class="unlike_id_'+value1['menu_id']+'">'+value1['menu_unlike_icon']+'&nbsp;</a>';
+                           t3_html += '<span class="unlike_id_count_'+value1['menu_id']+'">'+value1['total_dislike'] + '</span>';
                            t3_html +='</div>';
                            t3_html +='</div>';
                            t3_html +='</div>';
@@ -516,9 +516,9 @@ $(document).ready(function (e) {
                                             tag_filters+='<div class="dtl_ctm_icon" id="menu_tag_icons">'+$tag_icons+'</div>';
                                             tag_filters+='<div class="likedislikerate">';
                                             // tag_filters+='<a href="'+main_url+'/'+value1['menu_id']+'"></a>';
-                                            tag_filters+='<a href="#" data-id="'+value1['menu_id']+'" id="like_menu_item">'+value1['menu_like_icon']+'&nbsp;</a>'+value1['total_like']+' &nbsp;';
-                                            tag_filters+='<a href="#" data-id="'+value1['menu_id']+'" id="unlike_menu_item">'+value1['menu_unlike_icon']+'&nbsp;</a>';
-                                            tag_filters+= ''+value1['total_dislike'];
+                                            tag_filters+='<a href="javascript:void(0);" data-id="'+value1['menu_id']+'" id="like_menu_item"  class="like_id_'+value1['menu_id']+'">'+value1['menu_like_icon']+'&nbsp;</a><span class="like_id_count_'+value1['menu_id']+'">'+value1['total_like']+'</span> &nbsp;';
+                                            tag_filters+='<a href="javascript:void(0);" data-id="'+value1['menu_id']+'" id="unlike_menu_item"  class="unlike_id_'+value1['menu_id']+'">'+value1['menu_unlike_icon']+'&nbsp;</a>';
+                                            tag_filters+= '<span class="unlike_id_count_'+value1['menu_id']+'">'+value1['total_dislike'] + '</span>';
                                             tag_filters+='</div>';
                                             tag_filters+='</div>'; 
                                             tag_filters+='</div>';
@@ -548,9 +548,9 @@ $(document).ready(function (e) {
                                                 tag_filters+='<div class="dtl_ctm_icon" id="menu_tag_icons">'+$tag_icons+'</div>';
                                                 tag_filters+='<div class="likedislikerate">';
                                                 // tag_filters+='<a href="'+main_url+'/'+value1['menu_id']+'"></a>';
-                                                tag_filters+='<a href="#" data-id="'+value1['menu_id']+'" id="like_menu_item">'+value1['menu_like_icon']+'&nbsp;</a>'+value1['total_like']+' &nbsp;';
-                                                tag_filters+='<a href="#" data-id="'+value1['menu_id']+'" id="unlike_menu_item">'+value1['menu_unlike_icon']+'&nbsp;</a>';
-                                                tag_filters+= ''+value1['total_dislike'];
+                                                tag_filters+='<a href="javascript:void(0);" data-id="'+value1['menu_id']+'" id="like_menu_item"  class="like_id_'+value1['menu_id']+'">'+value1['menu_like_icon']+'&nbsp;</a><span class="like_id_count_'+value1['menu_id']+'">'+value1['total_like']+'</span> &nbsp;';
+                                                tag_filters+='<a href="javascript:void(0);" data-id="'+value1['menu_id']+'" id="unlike_menu_item"  class="unlike_id_'+value1['menu_id']+'">'+value1['menu_unlike_icon']+'&nbsp;</a>';
+                                                tag_filters+= '<span class="unlike_id_count_'+value1['menu_id']+'">'+value1['total_dislike'] + '</span>';
                                                 tag_filters+='</div>';
                                                 tag_filters+='</div>';
                                                 tag_filters+='</div>';
@@ -584,11 +584,20 @@ $(document).ready(function (e) {
                 $.each(data, function(key, value) 
                 {
                     if(key == 'success'){
-                         var redirect_url = "{{ url('menu-details') }}/"+menu_id;
-                        window.location.href = redirect_url; 
+                        //var redirect_url = "{{ url('menu-details') }}/"+menu_id;
+                        //window.location.href = redirect_url; 
+						//$menu_like_icon = '<i class="fa fa-thumbs-up thumbs_icon_big" aria-hidden="true" ></i>';
+                        $menu_like_icon = '<i class="fa fa-thumbs-up thumbs_icon" aria-hidden="true"></i>';
+                        var current_like_count   = $('.like_id_count_' + menu_id).html();
+                        //var current_unlike_count = $(small_unlike_icon_count).html();
+                        $(".like_id_" + menu_id).html($menu_like_icon);
+                        $(".like_id_count_" + menu_id).html(parseInt(current_like_count)+1);
+                        //$("#small_like_icon_count").html(parseInt(current_like_count)+1);
+						 
                     }else if(key == 'login_error'){
-                        var redirect_url = "{{ url('user_login') }}/{{ $restaurant_details->restaurant_id }}";
-                        window.location.href = redirect_url;
+						alert('false');
+                        //var redirect_url = "{{ url('user_login') }}/{{ $restaurant_details->restaurant_id }}";
+                        //window.location.href = redirect_url;
                     }
                 });
             }
@@ -606,12 +615,17 @@ $(document).ready(function (e) {
             success: function(data){
                 $.each(data, function(key, value) {
                     if(key == 'success'){
-                        var redirect_url = "{{ url('menu-details') }}/"+menu_id;
-                        window.location.href = redirect_url; 
+                        //var redirect_url = "{{ url('menu-details') }}/"+menu_id;
+                        //window.location.href = redirect_url; 
+						$menu_like_icon = '<i class="fa fa-thumbs-down thumbs_down_icon" aria-hidden="true"></i>';
+                        var current_like_count   = $('.unlike_id_count_' + menu_id).html();
+                        //var current_unlike_count = $(small_unlike_icon_count).html();
+                        $(".unlike_id_" + menu_id).html($menu_like_icon);
+                        $(".unlike_id_count_" + menu_id).html(parseInt(current_like_count)+1);
                     }
                     else if(key == 'login_error'){
-                        var redirect_url = "{{ url('user_login') }}/{{ $restaurant_details->restaurant_id }}";
-                        window.location.href = redirect_url;
+                        //var redirect_url = "{{ url('user_login') }}/{{ $restaurant_details->restaurant_id }}";
+                        //window.location.href = redirect_url;
                     }
                 });
             }

@@ -258,7 +258,7 @@
                                 </div>
                             </div>
                             <br>
-                            <div class="row">
+                            {{--<div class="row">
                                 <label class="col-md-12">Select Time Zone</label>
                                 <div class="col-md-12 error_message_parent">
                                     <select name="time_zone" class="form-control" id="time_zone">
@@ -272,9 +272,9 @@
                                     <span id="errorMessage"></span>
                                 </div>
                             </div>
-                            <br>
+                            <br>--}}
                             <div class="row">
-                                <label class="col-md-12">Select Country</label>
+                                <label class="col-md-12">Select Currency</label>
                                 <div class="col-md-12 error_message_parent">
                                     <select name="currency" class="form-control" id="currency">
                                         <option value="">Select Currency</option>

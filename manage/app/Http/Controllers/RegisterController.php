@@ -7,6 +7,7 @@ use Redirect;
 use Validator; 
 use Hash;
 use Mail;
+use App\Models\CategoryModel; 
 use App\Models\UserModel;
 use App\Models\CurrencyModel;
 use App\Models\RestaurantModel;
@@ -15,6 +16,7 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 use Session;
 use App\Models\CountryCurrencyModel;
 use App\Models\MenuModel;
+use Illuminate\Support\Facades\File;
 use App\Models\FontModel;
 class RegisterController extends Controller
 {
@@ -65,6 +67,7 @@ class RegisterController extends Controller
             ],
             'password_confirmation' => 'required|min:6',
         ]);
+		
         if ($validator->passes()) 
         {
             $default_font_type = FontModel::where('is_default','1')->first();
@@ -88,6 +91,8 @@ class RegisterController extends Controller
                 $add_rest->country_id      = $request->country_id;
                 $add_rest->time_zone_id      = $request->country_id;
                 $add_rest->currency_id     = $request->currency;
+                $add_rest->restaurant_logo     = 'logo-def.png';
+                $add_rest->restaurant_cover_image     = 'cover.png';
                 $add_rest->is_approved     = '1';
                 $add_rest->app_theme_font_type_1 = $font_type_id;
                 $add_rest->app_theme_font_type_2 = $font_type_id;
@@ -97,7 +102,113 @@ class RegisterController extends Controller
                 $row_added = $add_rest->save();
             if(!empty($row_added))
             {
+				
                 $restaurant_id = $add_rest->restaurant_id;
+				$new_restaurant_id = $restaurant_id;
+				
+				//make dir for def logo and cover
+				File::makeDirectory('uploads/images/restaurant/'.$restaurant_id);
+				
+				//copy default logo
+                File::copy('uploads/images/logo-def.png','uploads/images/restaurant/'.$restaurant_id.'/logo-def.png');
+				//copy default cover
+                File::copy('uploads/images/cover.png', 'uploads/images/restaurant/'.$restaurant_id.'/cover.png');
+					
+				//Add Demo Menu
+					// Add Parent Caregrory  Start
+						$parent_category = new CategoryModel();
+                        $parent_category->restaurant_id = $restaurant_id;
+                        $parent_category->category_name ='FOOD (demo)';
+                        $parent_category->created_at = date('Y-m-d H:i:s');
+                        $parent_category->category_type = "0";
+                        $parent_category->order_display = 1;
+                        $is_p_saved = $parent_category->save();
+					 // Add Parent Caregrory  Start
+					 
+						
+				
+					 // Add Main Caregrory  Start
+						$main_category =new CategoryModel();
+                        $main_category->restaurant_id = $restaurant_id;
+                        $main_category->category_name ='Steaks, Seafood, & Favorites (demo)';
+                        $main_category->created_at = date('Y-m-d H:i:s');
+                        $main_category->category_type = "1";
+						$main_category->parent_category_id = $parent_category->category_id;
+                        $main_category->order_display = 1;
+                        $is_m_saved = $main_category->save();
+					 // Add Main Caregrory  Start
+						
+					 //Add Menu Item
+						$menu_details_get = MenuModel::where('menu_id', 15)->with('menu_image_detail')->first(); 
+                        if(!empty($menu_details_get)){
+                            // Add row
+                            $menu_create = new MenuModel ();
+                            $menu_create->restaurant_id  = $restaurant_id;
+                            $menu_create->name           = $menu_details_get->name;
+                            $menu_create->slug           = $menu_details_get->slug.'-'.rand(pow(10, 2-1), pow(10, 2)-1);
+                            $menu_create->price         = $menu_details_get->price;
+                            $menu_create->price_description =$menu_details_get->price_description;
+							$menu_create->parent_category = $parent_category->category_id;
+							$menu_create->main_category  = $main_category->category_id;
+
+                            if(!empty($menu_details_get->sub_category)){
+                                $menu_sub_category = CategoryModel::where('parent_res_cat_id',$menu_details_get->sub_category)->where('restaurant_id',$new_restaurant_id)->first();
+                                if(!empty($menu_sub_category->category_id)){
+                                    $menu_create->sub_category  = $menu_sub_category->category_id;
+                                }
+                            }
+                            if (! File::exists(config('images.menu_url').$new_restaurant_id)) {
+                                File::makeDirectory(config('images.menu_url').$new_restaurant_id);
+                            }
+                            if(!empty($menu_details_get->menu_image)){
+                                $oldPath = config('images.menu_url').$menu_details_get->restaurant_id.'/'.$menu_details_get->menu_image;
+                                $newPath = config('images.menu_url').$new_restaurant_id.'/'.$menu_details_get->menu_image;
+                                File::copy($oldPath,$newPath);   
+                            }
+                            $destinationPath = config('images.menu_url').$menu_details_get->restaurant_id;
+                            //$menu_create->menu_image     = $menu_details_get->menu_image;
+                            $menu_create->availiblity    = $menu_details_get->availiblity;
+                            $menu_create->ingredients   = $menu_details_get->ingredients;
+                            $menu_create->allergies     = $menu_details_get->allergies;
+                            $menu_create->calories     = $menu_details_get->calories;
+                            $menu_create->link     = $menu_details_get->link;
+                            $menu_create->tag_id       = $menu_details_get->tag_id;
+                            $menu_create->description   = $menu_details_get->description;
+                            $menu_create->created_at     = date('Y-m-d H:i:s');
+                            if(empty($menu_details_get->order_display)){
+                                $order_menu = MenuModel::where('restaurant_id',$new_restaurant_id)->where('parent_category',$parent_category->category_id)->where('main_category',$main_category->category_id);
+                                if(!empty($main_category->category_id)){
+                                   $order_menu->where('sub_category',$main_category->category_id); 
+                                }
+                                $last_order_menu = $order_menu->first();
+                                if(!empty($last_order_menu)){
+                                    $menu_create->order_display = $last_order_menu->order_display + 1;
+                                }else{
+                                    $menu_create->order_display = 1;
+                                }
+                            }else{
+                              $menu_create->order_display   = $menu_details_get->order_display;  
+                            }
+                            $is_save=$menu_create->save();
+                            if(!empty($menu_details_get->menu_image_detail)){
+                                foreach($menu_details_get->menu_image_detail as $menu_image){
+                                    $add_menu_image =new MenuImage();
+                                    if (! File::exists(config('images.menu_url').$new_restaurant_id)) {
+                                        File::makeDirectory(config('images.menu_url').$new_restaurant_id);
+                                    }
+                                    $oldPath = config('images.menu_url').$menu_image->restaurant_id.'/'.$menu_image->image_name;
+                                    $newPath = config('images.menu_url').$new_restaurant_id.'/'.$menu_image->image_name;
+                                    File::copy($oldPath,$newPath); 
+                                    $add_menu_image->menu_id = $menu_create->menu_id;  
+                                    $add_menu_image->image_name=$menu_image->image_name;
+                                    $add_menu_image->restaurant_id=$new_restaurant_id;
+                                    $is_save=$add_menu_image->save();
+                                }
+                            } 
+                        }
+					 //Add Menu Item
+				//Add Demo Menu
+				
                 // Add user
                 $user_add = new UserModel();
                 $user_add->first_name    = $request->first_name;
@@ -113,7 +224,7 @@ class RegisterController extends Controller
                 if ($user_row_added) 
                 {
                     // // Send mail to user
-                    $to_name  = $request->first_name." ".$request->last_name;
+                    /*$to_name  = $request->first_name." ".$request->last_name;
                     $to_email = $request->email;
                     $data = array(
                                     'restaurant_name' => $request->restaurant_name,
@@ -130,7 +241,7 @@ class RegisterController extends Controller
                     Mail::send('email.user_registartion', ["data"=>$data] , function($message) use ($to_name, $to_email){
                         $message->to('info@melamenus.com', $to_name)->subject('Mela Menus - New Restaurant Created');
                         $message->from('info@melamenus.com','Mela Menus');
-                    });
+                    });*/
                     return response()->json(['success'=> 'Your Restaurant - '.$request->restaurant_name.' is registered successfully. Log in to continue working']);
                 }
                 else

@@ -199,7 +199,7 @@ class HomeController extends Controller
             'contact_number'  => 'required|numeric',
             'address'        => 'required',
             'country'      => 'required',
-            'time_zone'      => 'required',
+            //'time_zone'      => 'required',
             'currency'        => 'required',
             'password'        => [
                 'required',
@@ -215,6 +215,11 @@ class HomeController extends Controller
         if ($validator->passes())    
         {
             $parenet_restaurant_details=RestaurantModel::where('restaurant_id',$request->restaurant_id)->first();
+			
+			//echo '<pre>';
+			//	print_r($parenet_restaurant_details->time_zone_id);
+			//echo '</pre>';
+			//exit();
             // Add Restaurant
             $add_rest= new RestaurantModel();
             $add_rest->restaurant_name = $request->restaurant_name;
@@ -223,7 +228,8 @@ class HomeController extends Controller
             $add_rest->contact_number  = $request->contact_number;
             $add_rest->location        = $request->address;
             $add_rest->country_id      = $request->country;
-            $add_rest->time_zone_id      = $request->time_zone;
+            //$add_rest->time_zone_id      = $request->time_zone;
+            $add_rest->time_zone_id      = $parenet_restaurant_details->time_zone_id;
             $add_rest->currency_id     = $request->currency;
             $add_rest->is_approved     = '1';
             /*if(!empty($parenet_restaurant_details->texture_id)){

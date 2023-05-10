@@ -52,6 +52,8 @@ Route::get('auth/{driver}/callback', 'SocialLoginController@handleProviderCallba
 
 Route::get('/signup', 'RegisterController@showRegister'); 
 
+Route::post('/signup', 'RegisterController@showRegister'); 
+
 
 
 Route::post('register_user', 'RegisterController@doRegister');
@@ -481,7 +483,8 @@ Route::post('get_menu_tags', 'UserController@get_multiple_tag_details')->middlew
 
 
 
-Route::post('like_menu_item', 'UserController@like_menu_item')->middleware(CheckAppUserAccess::class);
+Route::post('like_menu_item', 'UserController@like_menu_item');
+//Route::post('like_menu_item', 'UserController@like_menu_item')->middleware(CheckAppUserAccess::class);
 
 
 

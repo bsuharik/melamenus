@@ -180,9 +180,9 @@
 																<label id="custom-label">Cover Image </label>
 																	<div class="profile-photo error_message_parent" style="margin-top: 0px;">
 																			@if(!empty($restaurant->restaurant_cover_image))
-																			<img src="../{{ config('images.restaurant_url') .$restaurant->restaurant_id.'/'. $restaurant->restaurant_cover_image }}" class="img-fluid logo_img" alt="Restaurant Logo">
+																			<img src="../{{ config('images.restaurant_url') .$restaurant->restaurant_id.'/'. $restaurant->restaurant_cover_image }}" class="img-fluid cover_img" alt="Restaurant Logo">
 																			@else
-																			<img src="../{{ config('images.default_image_url')}}" class="img-fluid logo_img" alt="">
+																			<img src="../{{ config('images.default_image_url')}}" class="img-fluid cover_img" alt="">
 																			@endif
 																			<input name="restaurant_cover_image" class="file-upload" type="file" accept="image/*" id="restaurant_cover_image" style="position: absolute; left: 40px; top: 70px;"/>
 																			<span id="errorMessage"></span>
@@ -648,7 +648,10 @@
                         reader.onload = function(e) {
                             if (name == "restaurant_logo") {
                                 $('.logo_img').attr('src', e.target.result);
-                            } else {
+                            } else if (name == "restaurant_cover_image"){
+                                $('.cover_img').attr('src', e.target.result);
+								
+							} else {
                                 console.log(e.target);
                                 // $('.banner_img').attr('src', e.target.result);
                                 $("#timelineBGload").show();

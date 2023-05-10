@@ -58,6 +58,7 @@ class UserController extends Controller
         $main_categories = array();
         $sub_categories = array();
         $restaurant_details = array();
+
         if ($restaurant_id != "") {
             session()->put('restaurant_id', $restaurant_id);
             if (request()->has('table_no') && request()->has('chair_no')) {
@@ -72,6 +73,8 @@ class UserController extends Controller
                     session()->put('chair_no', '');
                 }
             }
+			
+
 			
 			//fixed view
 			if(!request()->has('prew')){
@@ -100,6 +103,21 @@ class UserController extends Controller
 				
 			}
 			//fixed view
+
+			
+
+			
+			//tmp user id
+			if(!session('tmp_id')){
+				$tmp_id = rand(1, 9999);
+				session()->put('tmp_id', $tmp_id);
+				
+			}
+			//tmp user id
+			//echo '<pre>';
+			//	print_r(session('tmp_id'));
+			//echo '</pre>';
+			
             session()->save();
 			
 
@@ -1163,13 +1181,15 @@ class UserController extends Controller
     public function like_menu_item(Request $request)
     {
         $menu_id = $request->menu_id;
-        $this->middleware('auth');
-        if (Auth::user() === NULL) {
-            return response()->json(['login_error' => 'User Not logged in.']);
-        } else {
+        //$this->middleware('auth');
+			if (Auth::user() === NULL) {
+				$user_id = session('tmp_id');
+			} else {
+				$user_id = Auth::user()->id;
+			}
             $row_updated = 0;
             $data_updated = 0;
-            $user_id = Auth::user()->id;
+            
             // Get Menu details
             $menu_details = MenuModel::find($menu_id);
             $restaurant_id         = $menu_details->restaurant_id;
@@ -1216,7 +1236,7 @@ class UserController extends Controller
             } else {
                 return response()->json(['error' => 'Error While Updateing data.']);
             }
-        }
+        
     }
     // DisLike Menu item
     public function dislike_menu_item(Request $request)
@@ -1224,11 +1244,13 @@ class UserController extends Controller
         $menu_id = $request->menu_id;
         $this->middleware('auth');
         if (Auth::user() === NULL) {
-            return response()->json(['login_error' => 'User Not logged in.']);
-        } else {
+				$user_id = session('tmp_id');
+			} else {
+				$user_id = Auth::user()->id;
+			}
             $rows_updated = 0;
             $data_updated = 0;
-            $user_id = Auth::user()->id;
+           // $user_id = Auth::user()->id;
             // Get Menu details
             $menu_details = MenuModel::find($menu_id);
             $restaurant_id         = $menu_details->restaurant_id;
@@ -1274,7 +1296,7 @@ class UserController extends Controller
             } else {
                 return response()->json(['error' => 'Error While Updateing data.']);
             }
-        }
+        //}
     }
     // Favourite & UnFavouirte Menu
     public function fav_menu_item(Request $request)
