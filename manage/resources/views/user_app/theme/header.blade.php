@@ -113,7 +113,7 @@ if(Session::has('language_id')){
         <link rel="stylesheet" href="{!! asset('theme/user_app/css/owl.carousel.css') !!}" />
         <link rel="stylesheet" href="{!! asset('theme/user_app/css/owl.theme.css') !!}" />
         <link rel="stylesheet" href="{!! asset('theme/user_app/css/owl.transitions.css') !!}" />
-        <link rel="stylesheet" href="{!! asset('theme/user_app/css/style.css?v=6') !!}" />
+        <link rel="stylesheet" href="{!! asset('theme/user_app/css/style.css?v=7') !!}" />
 		
         <style type="text/css">
  
@@ -380,13 +380,16 @@ if(Session::has('language_id')){
                 font-family:{{$app_theme_font_type_1}};
 				text-decoration:{{$app_theme_font_style_1}};
                 font-weight:{{$app_theme_font_style_1}};
+				
             }
             .section-title-new{
+				font-style: normal !important;
                 color: {{ $app_theme_color_1 }} !important;
                 font-style:{{$app_theme_font_style_1}} !important;
                 font-family:{{$app_theme_font_type_1}} !important;
 				text-decoration:{{$app_theme_font_style_1}} !important;
                 font-weight:{{$app_theme_font_style_1}} !important;
+				
             }
             .review .post-review h6{
                 color: {{ $app_theme_color_1 }};
@@ -487,7 +490,7 @@ if(Session::has('language_id')){
             }
             h5 {
                 color: {{ $app_theme_color_3 }};
-                font-style:{{$app_theme_font_style_3}};
+                /*font-style:{{$app_theme_font_style_3}};*/
                 font-family:{{$app_theme_font_type_3}};
 				text-decoration:{{$app_theme_font_style_3}};
                 font-weight:{{$app_theme_font_style_3}};

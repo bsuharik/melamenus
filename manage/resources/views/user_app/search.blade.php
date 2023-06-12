@@ -46,7 +46,7 @@
                                             <a href="#" data-id="{{$menu->menu_id}}" class="fav_menu_item"id="fav_menu_item">
                                             {!! $fav_menu_icon !!}</a>
                                         </h6>
-                                        <h5>{{$menu->price}}</h5>
+                                        <h5>{!!$menu->price!!}</h5>
                                         <a href="{{ url('menu-details') }}/{{ $menu->menu_id }}" class="menu_item_count menu_item_count_img_fix" data-menu_id="{{ $menu->menu_id }}" data-menu_count="{{$menu->menu_click_count}}">
                                         <span class="allergy_red">Allergy!</span></a>
                                     </div>
@@ -62,7 +62,7 @@
                                                 <a href="#" data-id="{{$menu->menu_id}}" class="fav_menu_item"id="fav_menu_item">
                                                 {!! $fav_menu_icon !!}</a>
                                             </h6>
-                                            <h5>{{$menu->price}}</h5>
+                                            <h5>{!!$menu->price!!}</h5>
                                         </div>
                             @endif
                                 <p class="new_dis">{{ $menu->description }}</p></a>

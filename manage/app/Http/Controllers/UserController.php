@@ -179,6 +179,9 @@ class UserController extends Controller
             if (!empty($restaurant_details->user_detail->restaurant_owner_id)) {
                 $parent_restaurant_details = RestaurantModel::where('restaurant_id', $restaurant_details->user_detail->restaurant_owner_id)->first();
             }
+			
+			// Get Currency Array
+			$currency_array = CurrencyModel::all();
             /* get Parent restauraant Detail End */
             // echo "<pre>"; print_r($parent_categories); echo "</pre>"; exit();
             return view('user_app/home', ['parent_categories' => $parent_categories, 'main_categories' => $main_categories, 'sub_categories' => $sub_categories, 'restaurant_details' => $restaurant_details, 'fav_restaurant' => $fav_restaurant, 'parent_restaurant_details' => $parent_restaurant_details]);
@@ -2094,7 +2097,8 @@ class UserController extends Controller
         // echo "here"; exit(); 
         $restaurant_id = $restaurant_id;
 
-        $search_name = $request->search;
+       // $search_name = $request->search;
+        $search_name = 'chicken';
         // session()->put('search_name',$request->search);
         // session()->save();
 
@@ -2129,6 +2133,7 @@ class UserController extends Controller
         $fav_restaurant = 0;
 
         if (!empty($restaurant_details)) {
+			
 
             // Get Currency icon
 
@@ -2144,9 +2149,9 @@ class UserController extends Controller
 
             $valid_main_category_id = array();
 
-            if (!empty($restaurant_details->time_zone_detail)) {
+           // if (!empty($restaurant_details->time_zone_detail)) {
 
-                $timeZone = $restaurant_details->time_zone_detail->time_zone;
+                $timeZone = '+02:00';
 
                 if (!empty($restaurant_details->main_category_detail)) {
 
@@ -2203,9 +2208,9 @@ class UserController extends Controller
                         }
                     }
                 }
-            }
+            //}
 
-
+//echo "<pre>"; print_r( $main_categories); echo "</pre>"; exit();
 
             // Get Sub Categories
 

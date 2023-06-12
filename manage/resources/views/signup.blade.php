@@ -409,7 +409,7 @@
 
                         
 
-                        // window.location.href = '<?php //echo url('signup');?>';
+                         window.location.href = '/home';
 
                     }
 

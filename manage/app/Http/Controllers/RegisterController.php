@@ -7,8 +7,10 @@ use Redirect;
 use Validator; 
 use Hash;
 use Mail;
+use Auth;
 use App\Models\CategoryModel; 
 use App\Models\UserModel;
+use App\Models\TableModel;
 use App\Models\CurrencyModel;
 use App\Models\RestaurantModel;
 use App\Models\CountryModel;
@@ -71,16 +73,14 @@ class RegisterController extends Controller
         if ($validator->passes()) 
         {
             $default_font_type = FontModel::where('is_default','1')->first();
-			//echo '<pre>';
-			//	print_r($default_font_type);
-			//echo '</pre>';
-			//exit();
+
             if(!empty($default_font_type->id)){
                 $font_type_id= $default_font_type->id;
             }else{
                 $font_type_id= '';
             }
 
+	
             // Add Restaurant
             $add_rest= new RestaurantModel();
                 $add_rest->restaurant_name = $request->restaurant_name;
@@ -94,16 +94,62 @@ class RegisterController extends Controller
                 $add_rest->restaurant_logo     = 'logo-def.png';
                 $add_rest->restaurant_cover_image     = 'cover.png';
                 $add_rest->is_approved     = '1';
-                $add_rest->app_theme_font_type_1 = $font_type_id;
-                $add_rest->app_theme_font_type_2 = $font_type_id;
-                $add_rest->app_theme_font_type_3 = $font_type_id;
-                $add_rest->app_theme_font_type_4 = $font_type_id;
+                $add_rest->app_theme_font_type_1 = 7;
+                $add_rest->app_theme_font_type_2 = 7;
+                $add_rest->app_theme_font_type_3 = 7;
+                $add_rest->app_theme_font_type_4 = 7;
+				
+				
+                $add_rest->app_theme_color_1 = '#2d5090';
+                $add_rest->app_theme_color_2 = '#ffffff';
+                $add_rest->app_theme_color_3 = '#2d5090';
+                $add_rest->app_theme_color_4 = '#b1b4bd';
+				
+                $add_rest->app_theme_font_style_1 = 'bold';
+                $add_rest->app_theme_font_style_2 = 'bold';
+                $add_rest->app_theme_font_style_3 = 'bold';
+                $add_rest->app_theme_font_style_4 = 'Standard';
+				
                 $add_rest->created_at      = date('Y-m-d H:i:s');
                 $row_added = $add_rest->save();
+				
+			//echo '<pre>';
+			//	print_r($row_added);
+			///echo '</pre>';
+			//exit();
+			
+			
             if(!empty($row_added))
             {
 				
                 $restaurant_id = $add_rest->restaurant_id;
+				
+					$full_qr_code_image_name = '';
+                    $qr_code_image_name = '';
+
+                        for ($i=1; $i <= 1; $i++) 
+                        { 
+                            $chair_number = $i;
+                            $directory = config('images.qr_code_url').$restaurant_id;
+                            if(!File::exists($directory)) 
+                            {
+                                File::makeDirectory($directory);
+                            }
+                            $qr_code_image_name = "qrcode_1_1.png";
+                            $qr_path = $directory."/".$qr_code_image_name;
+                           $qr_image = TableModel::generate_qr_code($qr_path, $restaurant_id,'1','1');
+                            $full_qr_code_image_name .= $qr_code_image_name." ";
+                        }
+                    
+                    // Add row
+                    $table_data= new TableModel();
+                    $table_data->restaurant_id = $restaurant_id;
+                    $table_data->table_number =1;
+                    $table_data->chairs      = 1;
+                    $table_data->qr_code      = trim($full_qr_code_image_name);
+                    $table_data->created_at    = date('Y-m-d H:i:s');
+                    $row_added = $table_data->save();
+
 				$new_restaurant_id = $restaurant_id;
 				
 				//make dir for def logo and cover
@@ -220,11 +266,11 @@ class RegisterController extends Controller
                 $user_add->user_type     = '1';
                 $user_add->restaurant_id = $restaurant_id;
                 $user_add->created_at    = date('Y-m-d H:i:s');
-                $user_row_added= $user_add->save();
+                $user_row_added = $user_add->save();
                 if ($user_row_added) 
                 {
                     // // Send mail to user
-                    /*$to_name  = $request->first_name." ".$request->last_name;
+                    $to_name  = $request->first_name." ".$request->last_name;
                     $to_email = $request->email;
                     $data = array(
                                     'restaurant_name' => $request->restaurant_name,
@@ -241,7 +287,14 @@ class RegisterController extends Controller
                     Mail::send('email.user_registartion', ["data"=>$data] , function($message) use ($to_name, $to_email){
                         $message->to('info@melamenus.com', $to_name)->subject('Mela Menus - New Restaurant Created');
                         $message->from('info@melamenus.com','Mela Menus');
-                    });*/
+                    });
+
+					
+					Auth::loginUsingId($user_add->id);
+					
+					
+					
+					
                     return response()->json(['success'=> 'Your Restaurant - '.$request->restaurant_name.' is registered successfully. Log in to continue working']);
                 }
                 else
@@ -290,7 +343,7 @@ class RegisterController extends Controller
                 $currencyRateArray=json_decode($response);
                 Session::put('country_name',$request->country_name);
                 Session::put('currancy_symbol', $request->get('curency_symbol'));
-                Session::put('formatValue', $currencyRateArray->rates->$to_Currency->rate_for_amount);
+               // Session::put('formatValue', $currencyRateArray->rates->$to_Currency->rate_for_amount);
                 session()->save();
             }
             return response()->json(['sucess'=>'Convert success']);
@@ -350,7 +403,7 @@ class RegisterController extends Controller
                         $currencyRateArray=json_decode($response);
                         Session::put('country_name',$currency_detail->country_name);
                         Session::put('currancy_symbol',$currency_detail->symbol);
-                        Session::put('formatValue', $currencyRateArray->rates->$to_Currency->rate_for_amount);
+                    //    Session::put('formatValue', $currencyRateArray->rates->$to_Currency->rate_for_amount);
                         session()->save();
                     }
                 }

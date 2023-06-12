@@ -1241,7 +1241,7 @@ th{
     border-right: 1px solid #ddd;
 }
 .entry h5 {
-    font-weight: bold;
+    font-weight: normal;
 }
 .content a h6{
     color: #6742a8;
@@ -1335,7 +1335,7 @@ th{
         color: #000;
 }
 .dtl_ctm_icon img{
-    width: 20px !important;
+    width: 18px !important; 
     height: 20px !important;
     margin-top:10px;
     margin-right: 10px;
@@ -1428,7 +1428,7 @@ th{
     width: 15px;
     height: 15px;
     margin-top:4px;
-    margin-right: 10px;
+    margin-right: 3px;
     padding: 0px;
 }
 .app-section-category .likedislikerate{
@@ -2229,7 +2229,7 @@ box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.18);
 /*    cursor: default;*/
 /*}*/
 .dtl_ctm_icon {
-    position: absolute;
+    /*position: absolute;*/
     bottom: 3px;
 }
 .menu_item_img{
@@ -2239,8 +2239,8 @@ box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.18);
     position: unset;
 }
 .app-section-category .likedislikerate {
-    position: absolute;
-    right: 10px;
+   /* position: absolute;*/
+    right: -3px;
     bottom: 3px;
 }
 div#t1 .app-title, div#t2 .app-title,
@@ -2251,7 +2251,7 @@ div#t1 .app_fav_items_main, div#t2 .app_fav_items_main{
     margin-top: 10px;
 }
 span.allergy_red {
-    position: absolute;
+    /*position: absolute;*/
     background-image: url(../img/allergy-icon.png);
     z-index: 1;
     top: 0;
