@@ -9,7 +9,7 @@
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
                             <div class="dashboard_bar">
-                                {{ $restaurant->restaurant_name }} - Edit Profile Detail
+                                {{ $restaurant->restaurant_name }} - Edit Profile Detail2
                             </div>
                         </div>
 
