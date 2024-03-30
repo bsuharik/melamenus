@@ -1,0 +1,6 @@
+runtime: python
+env: standard
+
+handlers:
+- url: /.*
+  script: auto
