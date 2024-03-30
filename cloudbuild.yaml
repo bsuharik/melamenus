@@ -1,4 +1,3 @@
 steps:
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['compute', 'instances', 'create', 'weblaravel-vm', '--image', 'lamp-v20220807', '--zone', 'asia-southeast1-a']
-
+    args: ['compute', 'instances', 'start', 'weblaravel-vm', '--zone', 'asia-southeast1-a']
