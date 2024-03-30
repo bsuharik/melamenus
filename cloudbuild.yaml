@@ -1,3 +1,4 @@
 steps:
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy']
+    args: ['compute', 'instances', 'create', 'weblaravel-vm', '--image', 'lamp-v20220807', '--zone', 'asia-southeast1-a']
+
