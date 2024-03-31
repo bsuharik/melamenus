@@ -8,7 +8,7 @@ steps:
 
   # Step 1: Clone the GitHub repository into the temporary workspace
   - name: 'gcr.io/cloud-builders/git'
-    args: ['clone', 'https://github.com/bsuharik/melamenus', '/tmp/workspace']
+    args: ['clone', 'https://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@github.com/bsuharik/melamenus', '/tmp/workspace']
 
   # Step 2: Build the Docker image using files from the temporary workspace
   - name: 'gcr.io/cloud-builders/docker'
