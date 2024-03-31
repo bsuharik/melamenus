@@ -1,20 +1,19 @@
 steps:
-  
- # Step 0: Delete the existing /workspace directory
+  # Step 0: Create a temporary workspace directory
   - name: 'gcr.io/cloud-builders/git'
     entrypoint: 'bash'
     args:
       - '-c'
-      - 'sleep 5 && rm -rf /workspace'
+      - 'mkdir -p /tmp/workspace'
 
-# Step 1: Clone the GitHub repository
+  # Step 1: Clone the GitHub repository into the temporary workspace
   - name: 'gcr.io/cloud-builders/git'
-    args: ['clone', 'https://github.com/bsuharik/melamenus', '/workspace']
+    args: ['clone', 'https://github.com/bsuharik/melamenus', '/tmp/workspace']
 
-  # Step 2: Build the Docker image
+  # Step 2: Build the Docker image using files from the temporary workspace
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/stellar-state-376608/your-app', '.']
-  
+    args: ['build', '-t', 'gcr.io/stellar-state-376608/your-app', '/tmp/workspace']
+
   # Step 3: Push the Docker image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/stellar-state-376608/your-app']
@@ -28,6 +27,6 @@ steps:
       - '--zone=asia-southeast1-a'
       - '--command="cd /var/www/html && docker-compose pull && docker-compose up -d"'
     # Replace 'your-instance-zone' with your actual instance zone
-  
+
 images:
   - 'gcr.io/stellar-state-376608/your-app'
