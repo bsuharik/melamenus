@@ -12,7 +12,7 @@ steps:
 
   # Step 1.5: List contents of the workspace directory
   - name: 'gcr.io/cloud-builders/git'
-    args: ['ls', '-l', '/tmp/workspace']
+    args: ['bash', '-c', 'ls -l /tmp/workspace']
 
   # Step 2: Build the Docker image using files from the temporary workspace
   - name: 'gcr.io/cloud-builders/docker'
