@@ -10,6 +10,10 @@ steps:
   - name: 'gcr.io/cloud-builders/git'
     args: ['clone', 'https://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@github.com/bsuharik/melamenus', '/tmp/workspace']
 
+  # Step 1.5: List contents of the workspace directory
+  - name: 'gcr.io/cloud-builders/git'
+    args: ['ls', '-l', '/tmp/workspace']
+
   # Step 2: Build the Docker image using files from the temporary workspace
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/stellar-state-376608/your-app', '/tmp/workspace']
