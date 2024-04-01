@@ -5,9 +5,8 @@ steps:
     args:
       - '-c'
       - |
-        lsof +D /workspace | awk 'NR!=1 {print $2}' | xargs kill -9
+        find /workspace -type f -exec fuser -k {} +
         rm -rf /workspace
-
 
     # Step 1: Remove existing /workspace directory
   - name: 'gcr.io/cloud-builders/git'
