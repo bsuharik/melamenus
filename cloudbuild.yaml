@@ -1,23 +1,13 @@
-
 steps:
-
-
-  # Step 0: Delete the existing /workspace directory
-  - name: 'gcr.io/cloud-builders/git'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - 'rm -rf /workspace'
-  # Step 1: Clone the GitHub repository into a temporary workspace
+  # Step 1: Clone GitHub repository
   - name: 'gcr.io/cloud-builders/git'
     args: ['clone', 'https://github.com/bsuharik/melamenus', '/workspace']
 
-  # Step 2: Copy files to the active instance
+  # Step 2: Replace directory on server
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['compute', 'scp', '--recurse', '/workspace/*', 'root@34.143.228.84:/var/www/html']
-
-# Use substitutions to trigger the build automatically when changes occur in the GitHub repository
-substitutions:
-  _YOUR_REPO: bsuharik/melamenus
-  _INSTANCE_IP: 34.143.228.84
-  _DESTINATION_PATH: /var/www/html
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        ssh bryansuharik@weblaravel-vm 'rm -rf /var/www/html/*'
+        scp -r /workspace/* bryansuharik@weblaravel-vm:/var/www/html
