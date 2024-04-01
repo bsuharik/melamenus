@@ -1,5 +1,10 @@
 steps:
-
+  # Step to remove contents of the /workspace directory
+  - name: 'gcr.io/cloud-builders/git'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'rm -rf /workspace/*'
   # Step 2: Clone GitHub repository
   - name: 'gcr.io/cloud-builders/git'
     args: ['clone', 'https://github.com/bsuharik/melamenus', '/workspace']
