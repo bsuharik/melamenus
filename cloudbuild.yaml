@@ -1,10 +1,13 @@
 steps:
-  # Step to remove contents of the /workspace directory
+  # Step to remove contents of the /workspace directory if it exists
   - name: 'gcr.io/cloud-builders/git'
     entrypoint: 'bash'
     args:
       - '-c'
-      - 'rm -rf /workspace/*'
+      - |
+        if [ -d /workspace ]; then
+          rm -rf /workspace/*;
+        fi
   # Step 2: Clone GitHub repository
   - name: 'gcr.io/cloud-builders/git'
     args: ['clone', 'https://github.com/bsuharik/melamenus', '/workspace']
