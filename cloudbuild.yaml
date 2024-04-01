@@ -1,5 +1,13 @@
 
 steps:
+
+
+  # Step 0: Delete the existing /workspace directory
+  - name: 'gcr.io/cloud-builders/git'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'rm -rf /workspace'
   # Step 1: Clone the GitHub repository into a temporary workspace
   - name: 'gcr.io/cloud-builders/git'
     args: ['clone', 'https://github.com/bsuharik/melamenus', '/workspace']
