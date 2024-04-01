@@ -1,19 +1,4 @@
 steps:
-    # Step 0: Find and kill processes using /workspace directory
-  - name: 'gcr.io/cloud-builders/git'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        find /workspace -type f -exec fuser -k {} +
-        rm -rf /workspace
-
-    # Step 1: Remove existing /workspace directory
-  - name: 'gcr.io/cloud-builders/git'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - 'rm -rf /workspace'
 
   # Step 2: Clone GitHub repository
   - name: 'gcr.io/cloud-builders/git'
