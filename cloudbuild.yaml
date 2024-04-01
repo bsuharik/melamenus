@@ -1,16 +1,25 @@
 steps:
-  # Step 0: Remove existing /workspace directory
+    # Step 0: Find and kill processes using /workspace directory
+  - name: 'gcr.io/cloud-builders/git'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        fuser -k /workspace
+        rm -rf /workspace
+
+    # Step 1: Remove existing /workspace directory
   - name: 'gcr.io/cloud-builders/git'
     entrypoint: 'bash'
     args:
       - '-c'
       - 'rm -rf /workspace'
 
-  # Step 1: Clone GitHub repository
+  # Step 2: Clone GitHub repository
   - name: 'gcr.io/cloud-builders/git'
     args: ['clone', 'https://github.com/bsuharik/melamenus', '/workspace']
 
-  # Step 2: Replace directory on server
+  # Step 3: Replace directory on server
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
